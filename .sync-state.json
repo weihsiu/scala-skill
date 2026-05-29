@@ -4,7 +4,7 @@
     "repo": "VirtusLab/scala-skill",
     "remote": "upstream",
     "branch": "master",
-    "last_synced_sha": "72a324c4f750c70c044a2aed705f3f094d433e94",
+    "last_synced_sha": "eb234a6b4a30454c3e07d145b0ac370f8239980c",
     "last_synced_date": "2026-05-29",
     "path_mapping": {
       "direct-style-scala/skills/direct-style-scala/120-type-safe-configuration.md": "scala/skills/scala/120-type-safe-configuration.md",
