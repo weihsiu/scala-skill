@@ -1,32 +1,79 @@
 {
-  "name": "virtuslab-scala-skill",
-  "description": "Claude Code Scala skills by VirtusLab",
+  "name": "scala-skill",
+  "description": "Scala 3 skills as three independent plugins: general Scala, the SoftwareMill direct-style stack, and the yaes effect system.",
   "owner": {
-    "name": "VirtusLab"
+    "name": "Walter Chang"
   },
-  "homepage": "https://github.com/VirtusLab/scala-skill",
-  "repository": "https://github.com/VirtusLab/scala-skill",
+  "homepage": "https://github.com/weihsiu/scala-skill",
+  "repository": "https://github.com/weihsiu/scala-skill",
   "plugins": [
     {
-      "name": "direct-style-scala",
-      "source": "./direct-style-scala",
-      "description": "Scala coding style, tooling, and functional programming guidance, with dedicated sections on direct-style Scala, Ox structured concurrency, and synchronous Tapir. Auto-load for any task involving Scala code, especially when using direct-style or \"plain\" Scala.",
-      "version": "1.0.8",
+      "name": "scala",
+      "source": "./scala",
+      "description": "General Scala 3 coding style, tooling, and functional programming guidance — language-level rules that apply regardless of which effect system or HTTP library you use. Auto-load for any task involving Scala code.",
+      "version": "0.1.0",
       "author": {
-        "name": "VirtusLab"
+        "name": "Walter Chang"
       },
-      "homepage": "https://github.com/VirtusLab/scala-skill/tree/master/direct-style-scala/skills/direct-style-scala",
-      "repository": "https://github.com/VirtusLab/scala-skill",
+      "homepage": "https://github.com/weihsiu/scala-skill/tree/master/scala/skills/scala",
+      "repository": "https://github.com/weihsiu/scala-skill",
+      "license": "Apache-2.0",
+      "keywords": [
+        "scala",
+        "scala3",
+        "functional programming",
+        "tooling",
+        "sbt",
+        "metals"
+      ],
+      "category": "development"
+    },
+    {
+      "name": "softwaremill-scala",
+      "source": "./softwaremill-scala",
+      "description": "Direct-style Scala with the SoftwareMill ecosystem — Ox structured concurrency, synchronous Tapir, sttp, ox-kafka, MacWire. Auto-load for any Scala task that uses Ox, Tapir, or sttp. Depends on the general `scala` plugin for language-level rules.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Walter Chang"
+      },
+      "homepage": "https://github.com/weihsiu/scala-skill/tree/master/softwaremill-scala/skills/softwaremill-scala",
+      "repository": "https://github.com/weihsiu/scala-skill",
       "license": "Apache-2.0",
       "keywords": [
         "scala",
         "tapir",
         "ox",
         "sttp",
+        "ox-kafka",
+        "macwire",
         "direct-style",
         "virtual-threads",
-        "functional programming",
-        "concurrency"
+        "structured-concurrency",
+        "softwaremill"
+      ],
+      "category": "development"
+    },
+    {
+      "name": "yaes-scala",
+      "source": "./yaes-scala",
+      "description": "Direct-style Scala 3 with the yaes (λÆS) effect system — algebraic effects via context parameters, capability-based handlers, structured concurrency on Java virtual threads. Auto-load for any Scala task using `in.rcard.yaes`. Depends on the general `scala` plugin for language-level rules.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Walter Chang"
+      },
+      "homepage": "https://github.com/weihsiu/scala-skill/tree/master/yaes-scala/skills/yaes-scala",
+      "repository": "https://github.com/weihsiu/scala-skill",
+      "license": "Apache-2.0",
+      "keywords": [
+        "scala",
+        "scala3",
+        "yaes",
+        "effect-system",
+        "algebraic-effects",
+        "direct-style",
+        "virtual-threads",
+        "structured-concurrency",
+        "capabilities"
       ],
       "category": "development"
     }
