@@ -1,0 +1,40 @@
+{
+  "name": "yaes-scala",
+  "version": "0.1.0",
+  "description": "Direct-style Scala 3 with the yaes (λÆS) effect system — algebraic effects via context parameters, capability-based handlers, structured concurrency on Java virtual threads. Auto-load for any Scala task using `in.rcard.yaes`. Depends on the general `scala` plugin for language-level rules.",
+  "author": {
+    "name": "Walter Chang"
+  },
+  "homepage": "https://github.com/weihsiu/scala-skill/tree/master/yaes-scala/skills/yaes-scala",
+  "repository": "https://github.com/weihsiu/scala-skill",
+  "license": "Apache-2.0",
+  "keywords": [
+    "scala",
+    "scala3",
+    "yaes",
+    "effect-system",
+    "algebraic-effects",
+    "direct-style",
+    "virtual-threads",
+    "structured-concurrency",
+    "capabilities"
+  ],
+  "skills": "./skills",
+  "interface": {
+    "displayName": "yaes Scala",
+    "shortDescription": "Direct-style Scala 3 with the yaes (λÆS) effect system.",
+    "longDescription": "Direct-style Scala 3 with yaes — algebraic effects via Scala 3 context parameters. Capability-based handlers for Raise, Resource, Async, State, Reader, Writer, Clock, and more. Builds on the general `scala` plugin.",
+    "developerName": "Walter Chang",
+    "category": "Development",
+    "capabilities": [
+      "Skills"
+    ],
+    "websiteURL": "https://github.com/rcardin/yaes",
+    "defaultPrompt": [
+      "Use yaes effect-system guidance",
+      "Plan a yaes service with explicit Raise and Resource",
+      "Review this yaes code"
+    ],
+    "brandColor": "#7E57C2"
+  }
+}

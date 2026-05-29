@@ -1,0 +1,22 @@
+{
+  "name": "yaes-scala",
+  "version": "0.1.0",
+  "description": "Direct-style Scala 3 with the yaes (λÆS) effect system — algebraic effects via context parameters, capability-based handlers, structured concurrency on Java virtual threads. Auto-load for any Scala task using `in.rcard.yaes`. Depends on the general `scala` plugin for language-level rules.",
+  "author": {
+    "name": "Walter Chang"
+  },
+  "homepage": "https://github.com/weihsiu/scala-skill/tree/master/yaes-scala/skills/yaes-scala",
+  "repository": "https://github.com/weihsiu/scala-skill",
+  "license": "Apache-2.0",
+  "keywords": [
+    "scala",
+    "scala3",
+    "yaes",
+    "effect-system",
+    "algebraic-effects",
+    "direct-style",
+    "virtual-threads",
+    "structured-concurrency",
+    "capabilities"
+  ]
+}

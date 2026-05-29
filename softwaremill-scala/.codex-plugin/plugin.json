@@ -1,0 +1,41 @@
+{
+  "name": "softwaremill-scala",
+  "version": "0.1.0",
+  "description": "Direct-style Scala with the SoftwareMill ecosystem — Ox structured concurrency, synchronous Tapir, sttp, ox-kafka, MacWire. Auto-load for any Scala task that uses Ox, Tapir, or sttp. Depends on the general `scala` plugin for language-level rules.",
+  "author": {
+    "name": "Walter Chang"
+  },
+  "homepage": "https://github.com/weihsiu/scala-skill/tree/master/softwaremill-scala/skills/softwaremill-scala",
+  "repository": "https://github.com/weihsiu/scala-skill",
+  "license": "Apache-2.0",
+  "keywords": [
+    "scala",
+    "tapir",
+    "ox",
+    "sttp",
+    "ox-kafka",
+    "macwire",
+    "direct-style",
+    "virtual-threads",
+    "structured-concurrency",
+    "softwaremill"
+  ],
+  "skills": "./skills",
+  "interface": {
+    "displayName": "SoftwareMill Scala",
+    "shortDescription": "Direct-style Scala with Ox, Tapir, sttp, ox-kafka, MacWire.",
+    "longDescription": "Direct-style Scala with the SoftwareMill ecosystem — Ox structured concurrency, synchronous Tapir, sttp, ox-kafka, MacWire. Auto-load for any Scala task that uses Ox, Tapir, or sttp. Builds on the general `scala` plugin.",
+    "developerName": "Walter Chang",
+    "category": "Development",
+    "capabilities": [
+      "Skills"
+    ],
+    "websiteURL": "https://github.com/weihsiu/scala-skill",
+    "defaultPrompt": [
+      "Use direct-style Scala guidance",
+      "Review this Scala service",
+      "Plan a Tapir endpoint implementation"
+    ],
+    "brandColor": "#DE3423"
+  }
+}

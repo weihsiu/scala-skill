@@ -1,0 +1,19 @@
+{
+  "name": "scala",
+  "version": "0.1.0",
+  "description": "General Scala 3 coding style, tooling, and functional programming guidance — language-level rules that apply regardless of which effect system or HTTP library you use. Auto-load for any task involving Scala code.",
+  "author": {
+    "name": "Walter Chang"
+  },
+  "homepage": "https://github.com/weihsiu/scala-skill/tree/master/scala/skills/scala",
+  "repository": "https://github.com/weihsiu/scala-skill",
+  "license": "Apache-2.0",
+  "keywords": [
+    "scala",
+    "scala3",
+    "functional programming",
+    "tooling",
+    "sbt",
+    "metals"
+  ]
+}

@@ -1,0 +1,22 @@
+scala-skill
+Copyright 2026 Walter Chang and contributors
+
+This product includes work derived from:
+
+1. VirtusLab/scala-skill
+   https://github.com/VirtusLab/scala-skill
+   Copyright VirtusLab and contributors
+   Licensed under the Apache License, Version 2.0.
+
+   Content under scala/skills/scala/ and softwaremill-scala/skills/softwaremill-scala/
+   is derived from the upstream "direct-style-scala" skill and has been
+   restructured into two plugins.
+
+2. rcardin/yaes
+   https://github.com/rcardin/yaes
+   Copyright Riccardo Cardin and contributors
+   Licensed under the MIT License.
+
+   Content under yaes-scala/skills/yaes-scala/ is hand-written based on the
+   yaes README and module sources. It contains no copied source code; code
+   examples illustrate the public yaes API surface.

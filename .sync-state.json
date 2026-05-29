@@ -1,0 +1,57 @@
+{
+  "$schema_note": "Managed by .claude/commands/sync-upstream.md. Do not edit by hand.",
+  "upstream_scala_skill": {
+    "repo": "VirtusLab/scala-skill",
+    "remote": "upstream",
+    "branch": "master",
+    "last_synced_sha": "72a324c4f750c70c044a2aed705f3f094d433e94",
+    "last_synced_date": "2026-05-29",
+    "path_mapping": {
+      "direct-style-scala/skills/direct-style-scala/120-type-safe-configuration.md": "scala/skills/scala/120-type-safe-configuration.md",
+      "direct-style-scala/skills/direct-style-scala/160-code-organization.md": "scala/skills/scala/160-code-organization.md",
+      "direct-style-scala/skills/direct-style-scala/400-sql-persistence.md": "scala/skills/scala/400-sql-persistence.md",
+      "direct-style-scala/skills/direct-style-scala/100-resource-management.md": "softwaremill-scala/skills/softwaremill-scala/100-resource-management.md",
+      "direct-style-scala/skills/direct-style-scala/110-background-processes.md": "softwaremill-scala/skills/softwaremill-scala/110-background-processes.md",
+      "direct-style-scala/skills/direct-style-scala/130-compile-time-dependency-injection.md": "softwaremill-scala/skills/softwaremill-scala/130-compile-time-dependency-injection.md",
+      "direct-style-scala/skills/direct-style-scala/140-new-project-setup.md": "softwaremill-scala/skills/softwaremill-scala/140-new-project-setup.md",
+      "direct-style-scala/skills/direct-style-scala/150-shared-state-across-threads.md": "softwaremill-scala/skills/softwaremill-scala/150-shared-state-across-threads.md",
+      "direct-style-scala/skills/direct-style-scala/200-error-handling.md": "softwaremill-scala/skills/softwaremill-scala/200-error-handling.md",
+      "direct-style-scala/skills/direct-style-scala/210-error-output-customisation.md": "softwaremill-scala/skills/softwaremill-scala/210-error-output-customisation.md",
+      "direct-style-scala/skills/direct-style-scala/220-decode-failure-handling.md": "softwaremill-scala/skills/softwaremill-scala/220-decode-failure-handling.md",
+      "direct-style-scala/skills/direct-style-scala/300-authentication.md": "softwaremill-scala/skills/softwaremill-scala/300-authentication.md",
+      "direct-style-scala/skills/direct-style-scala/310-http-server-configuration.md": "softwaremill-scala/skills/softwaremill-scala/310-http-server-configuration.md",
+      "direct-style-scala/skills/direct-style-scala/320-version-api.md": "softwaremill-scala/skills/softwaremill-scala/320-version-api.md",
+      "direct-style-scala/skills/direct-style-scala/330-compile-time-openapi-generation.md": "softwaremill-scala/skills/softwaremill-scala/330-compile-time-openapi-generation.md",
+      "direct-style-scala/skills/direct-style-scala/340-soap-with-scalaxb.md": "softwaremill-scala/skills/softwaremill-scala/340-soap-with-scalaxb.md",
+      "direct-style-scala/skills/direct-style-scala/410-sending-emails.md": "softwaremill-scala/skills/softwaremill-scala/410-sending-emails.md",
+      "direct-style-scala/skills/direct-style-scala/420-kafka-streaming.md": "softwaremill-scala/skills/softwaremill-scala/420-kafka-streaming.md",
+      "direct-style-scala/skills/direct-style-scala/500-testing-http-endpoints.md": "softwaremill-scala/skills/softwaremill-scala/500-testing-http-endpoints.md",
+      "direct-style-scala/skills/direct-style-scala/510-opentelemetry-observability.md": "softwaremill-scala/skills/softwaremill-scala/510-opentelemetry-observability.md",
+      "direct-style-scala/skills/direct-style-scala/CONTRIBUTING.md": "softwaremill-scala/skills/softwaremill-scala/CONTRIBUTING.md"
+    }
+  },
+  "yaes": {
+    "repo": "rcardin/yaes",
+    "branch": "main",
+    "last_synced_sha": "620c3792694309c7333597dbb775ebe622a61c48",
+    "last_synced_version": "0.20.0",
+    "last_synced_date": "2026-05-29",
+    "watched_paths": [
+      "README.md",
+      "yaes-core/src/",
+      "yaes-data/src/",
+      "yaes-cats/src/",
+      "yaes-slf4j/src/",
+      "yaes-test/src/"
+    ],
+    "derived_files": [
+      "yaes-scala/skills/yaes-scala/100-overview-and-direct-style.md",
+      "yaes-scala/skills/yaes-scala/110-raise-error-handling.md",
+      "yaes-scala/skills/yaes-scala/120-resource-effect.md",
+      "yaes-scala/skills/yaes-scala/130-async-structured-concurrency.md",
+      "yaes-scala/skills/yaes-scala/140-channels-and-flow.md",
+      "yaes-scala/skills/yaes-scala/200-side-effecting-services.md",
+      "yaes-scala/skills/yaes-scala/300-testing.md"
+    ]
+  }
+}

@@ -1,14 +1,38 @@
 {
-  "name": "virtuslab-scala-skill",
+  "name": "scala-skill",
   "interface": {
-    "displayName": "VirtusLab Scala Skills"
+    "displayName": "Scala Skills"
   },
   "plugins": [
     {
-      "name": "direct-style-scala",
+      "name": "scala",
       "source": {
         "source": "local",
-        "path": "./direct-style-scala"
+        "path": "./scala"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Development"
+    },
+    {
+      "name": "softwaremill-scala",
+      "source": {
+        "source": "local",
+        "path": "./softwaremill-scala"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Development"
+    },
+    {
+      "name": "yaes-scala",
+      "source": {
+        "source": "local",
+        "path": "./yaes-scala"
       },
       "policy": {
         "installation": "AVAILABLE",
