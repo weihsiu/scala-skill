@@ -2,10 +2,7 @@
 
 A collection of [Scala](https://www.scala-lang.org) skills for [Claude
 Code](https://claude.ai/claude-code) and [Codex](https://openai.com/codex/),
-packaged as three independent plugins in a single marketplace.
-
-This is a fork of [VirtusLab/scala-skill](https://github.com/VirtusLab/scala-skill)
-that splits the original `direct-style-scala` plugin into three sections:
+packaged as three independent plugins in a single marketplace:
 
 - a foundational **`scala`** plugin (language and FP rules)
 - a **`softwaremill-scala`** plugin for the Ox / Tapir / sttp stack
