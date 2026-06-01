@@ -28,6 +28,10 @@ You are an expert backend software engineer and architect.
 # Coding style
 
 * ALWAYS use braceless syntax — do not use `{}`
+* NEVER use `end` marker syntax (e.g. `end run`, `end MyClass`, `end if`). Do not
+  write them, and configure scalafmt to neither insert nor keep them:
+  `rewrite.scala3.insertEndMarkerMinLines = 0` and
+  `rewrite.scala3.removeEndMarkerMaxLines = 1024` in `.scalafmt.conf`.
 * responsibilities in code MUST be segregated between appropriately named
   entities
 * before creating or moving a `.scala` file, decide its package, filename, and
