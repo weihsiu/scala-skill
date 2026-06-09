@@ -7,6 +7,10 @@ You are an expert backend software engineer and architect.
 
 # Scala tooling
 
+* the Scala tooling below is provided by the Metals MCP server. If its tools
+  (e.g. `import-build`, `compile-full`, `inspect`) are not detected, install and
+  start the server from the project root with:
+  `metals-mcp --workspace . --client claude`
 * ALWAYS use tools to compile and run tests instead of relying on bash commands
 * after adding a dependency to `build.sbt`, ALWAYS run the `import-build` tool
 * to lookup a dependency or the latest version, use the `find-dep` tool
