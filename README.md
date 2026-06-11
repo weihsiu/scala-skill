@@ -139,9 +139,14 @@ new commits to this repo is **not** enough on its own.
 For users with the plugins installed:
 
 ```
-# Claude Code
-/plugin marketplace update scala-skill     # refresh marketplace metadata
-/plugin update scala@scala-skill           # pull the new version (repeat per plugin)
+# Claude Code — updating the marketplace also updates its installed plugins:
+/plugin marketplace update scala-skill     # refresh + update installed plugins
+# (equivalently, from a shell:)
+claude plugin marketplace update scala-skill
+# Restart Claude Code afterwards for the new version to apply.
+
+# To update a single plugin instead of the whole marketplace:
+/plugin update scala@scala-skill           # or: claude plugin update scala@scala-skill
 
 # Codex
 codex plugin marketplace upgrade scala-skill
@@ -158,7 +163,8 @@ codex plugin marketplace upgrade scala-skill
 >
 > Bump only the plugins you actually changed — the three plugins version
 > independently (see `CLAUDE.md`). Until the version is bumped and pushed,
-> `/plugin update` is a no-op and agents keep running the old skill.
+> `/plugin marketplace update` finds nothing new and agents keep running the
+> old skill.
 
 ## Keeping up with upstream
 
