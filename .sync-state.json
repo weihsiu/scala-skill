@@ -4,8 +4,8 @@
     "repo": "VirtusLab/scala-skill",
     "remote": "upstream",
     "branch": "master",
-    "last_synced_sha": "eb234a6b4a30454c3e07d145b0ac370f8239980c",
-    "last_synced_date": "2026-05-29",
+    "last_synced_sha": "9eda4a82a9b7225a09d84a92bcaee1df1164f522",
+    "last_synced_date": "2026-06-11",
     "path_mapping": {
       "direct-style-scala/skills/direct-style-scala/120-type-safe-configuration.md": "scala/skills/scala/120-type-safe-configuration.md",
       "direct-style-scala/skills/direct-style-scala/160-code-organization.md": "scala/skills/scala/160-code-organization.md",
@@ -33,9 +33,9 @@
   "yaes": {
     "repo": "rcardin/yaes",
     "branch": "main",
-    "last_synced_sha": "620c3792694309c7333597dbb775ebe622a61c48",
+    "last_synced_sha": "cf6a215fc914e68fd95b59bdd9e754dbd36a19c3",
     "last_synced_version": "0.20.0",
-    "last_synced_date": "2026-05-29",
+    "last_synced_date": "2026-06-11",
     "watched_paths": [
       "README.md",
       "yaes-core/src/",

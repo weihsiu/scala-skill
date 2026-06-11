@@ -27,6 +27,11 @@ Scala on the SoftwareMill stack (Ox, Tapir, sttp, MacWire, ox-kafka).
   resource must be tied to that parent scope's lifetime.
 * keep constructors plain; use factories that take `(using Ox)` and return
   values that do not carry the capability.
+* prefer Ox's `.pipe` and `.tap` (`import ox.*`) over the standard-library
+  `scala.util.chaining` ones when `ox.*` is already in scope, to drop single-use
+  `val`s that only feed the next line. `.pipe(f)` returns `f(value)`; `.tap(f)`
+  runs a side effect and returns the value unchanged. Keep a named `val` when
+  the name documents intent or the value is reused.
 
 # Use-Case Guide
 

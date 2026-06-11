@@ -1,6 +1,6 @@
 {
   "name": "softwaremill-scala",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Direct-style Scala with the SoftwareMill ecosystem — Ox structured concurrency, synchronous Tapir, sttp, ox-kafka, MacWire. Auto-load for any Scala task that uses Ox, Tapir, or sttp. Depends on the general `scala` plugin for language-level rules.",
   "author": {
     "name": "Walter Chang"
