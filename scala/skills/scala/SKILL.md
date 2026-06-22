@@ -151,6 +151,18 @@ enum FlushOutcome:
   case Success, Failure
 def recordFlush(outcome: FlushOutcome, duration: Duration): Unit
 ```
+* when an `if`/`else` only picks between values, fold it away with combinators
+  rather than repeating the test: `.fold`/`.getOrElse`/`.map`/`.foreach`, the
+  same on `Option` and `Either`. Derive the decision once instead of re-testing
+  it across functions. `isEmpty`/`nonEmpty` is the predicate — don't expand it to
+  `case Nil`.
+
+```scala
+// Wrong — repeats the test + derivation per caller:
+if labels.isEmpty then "none" else labels.distinct.mkString(", ")
+// Right — derive once, fold the absence away:
+Option.when(labels.nonEmpty)(labels.distinct.mkString(", ")).getOrElse("none")
+```
 * NEVER throw exceptions for recoverable failures. Instead, return an `Either[E, T]`.
   Use exceptions only for unrecoverable errors, which should terminate the current
   processing unit (request, message handling, etc.)
