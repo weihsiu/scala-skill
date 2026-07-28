@@ -1,6 +1,6 @@
 {
   "name": "scala",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "General Scala 3 coding style, tooling, and functional programming guidance — language-level rules that apply regardless of which effect system or HTTP library you use. Auto-load for any task involving Scala code.",
   "author": {
     "name": "Walter Chang"
