@@ -13,7 +13,21 @@ You are an expert backend software engineer and architect.
   `metals-mcp --workspace . --client claude`
 * ALWAYS use tools to compile and run tests instead of relying on bash commands
 * after adding a dependency to `build.sbt`, ALWAYS run the `import-build` tool
-* to lookup a dependency or the latest version, use the `find-dep` tool
+* to lookup a dependency or the latest version, use the `find-dep` tool. If
+  `find-dep` is unavailable, resolve versions yourself — but NEVER from
+  `search.maven.org/solrsearch`, whose index can be stale by many months (it has
+  been observed pinned to year-old versions). Use these instead:
+  * latest version of a KNOWN artifact — read the canonical resolver source,
+    `https://repo1.maven.org/maven2/<group-with-slashes>/<artifact>/maven-metadata.xml`,
+    and take `<release>` (or the last `<version>`). `<release>` may itself be a
+    prerelease (e.g. scalatest's was `3.3.0-SNAP4`, Scala 3's `3.9.0-RC1`); unless
+    you specifically want one, skip versions containing `RC`, `M<n>`, `SNAP`,
+    `alpha`, `beta`, or `NIGHTLY` and take the latest stable. Remember the Scala
+    suffix, e.g. `com/softwaremill/ox/core_3`. This is never stale.
+  * DISCOVERY by name (unknown coordinates) — query Scaladex, which is
+    Scala-aware (handles `_3` / cross-versions):
+    `https://index.scala-lang.org/api/autocomplete?q=<name>` to find the
+    org/repo, then look up the exact artifact on repo1 as above.
 * to lookup the API of a class, use the `inspect` tool. To lookup the docs or
   usages, use the `get-docs` and `get-usages` tools
 * to compile the project, use `compile-full`, `compile-module` tools
@@ -205,10 +219,12 @@ object Port:
 BEFORE writing Scala code that uses one of the topics below, fetch the chapter
 and follow the patterns shown there.
 
-When fetching, you MUST request the COMPLETE content — every code block, every
-paragraph. Summaries lose critical details. Use a prompt like: "Return the
-COMPLETE raw content. Every line, every code block. Do not summarize or omit
-anything."
+Retrieve the chapter as raw, unmodified text — read every code block and
+paragraph in full. Do NOT use a tool that summarises the page: summaries silently
+drop the `> Required` / `> Important` callouts and the exact API calls that make
+the chapter correct. Prefer reading the chapter file directly from the installed
+skill directory; if fetching over the network, use a method that returns the
+verbatim file (a raw HTTP GET), not a fetch-and-summarise tool.
 
 Base URL for this plugin's chapters:
 https://raw.githubusercontent.com/weihsiu/scala-skill/refs/heads/master/scala/skills/scala/

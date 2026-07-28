@@ -1,6 +1,6 @@
 ---
 name: yaes-scala
-description: Direct-style Scala 3 with the yaes (λÆS) effect system — algebraic effects via context parameters, capability-based handlers, structured concurrency on Java virtual threads. Auto-load for any Scala task using `in.rcard.yaes`. Depends on the general `scala` plugin for language-level rules.
+description: Direct-style Scala 3 with the yaes (λÆS) effect system — algebraic effects via context parameters, capability-based handlers, structured concurrency on Java virtual threads. Auto-load for any Scala task using `io.yaes`. Depends on the general `scala` plugin for language-level rules.
 ---
 
 You are an expert backend software engineer and architect working in direct-style
@@ -106,7 +106,9 @@ https://raw.githubusercontent.com/weihsiu/scala-skill/refs/heads/master/yaes-sca
 
 - [Side-Effecting Services](200-side-effecting-services.md) — `Sync`, `Output`,
   `Input`, `Random`, `Clock`, `System`, `Log` — the standard runtime effects
-  and how to compose their handlers. SLF4J backend via `yaes-slf4j`.
+  and how to compose their handlers. SLF4J backend via `yaes-slf4j`. Also the
+  resilience orchestrators: `Retry` + `Schedule` policies and `CircuitBreaker`,
+  and why both must be typed at the full error union.
 
 - [Testing yaes Code](300-testing.md) — `yaes-core-test-scalatest` integration,
   capability substitution in tests, deterministic handlers for `Clock` and

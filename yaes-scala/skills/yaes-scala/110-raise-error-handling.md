@@ -7,15 +7,15 @@ effect into a plain `Either`, `Option`, nullable, or other shape.
 ## Dependencies
 
 ```sbt
-"in.rcard.yaes" %% "yaes-core"
+"io.yaes" %% "yaes-core"
 // Optional: cats-based polymorphic accumulation
-// "in.rcard.yaes" %% "yaes-cats"
+// "io.yaes" %% "yaes-cats"
 ```
 
 ## Signalling errors
 
 ```scala
-import in.rcard.yaes.Raise.*
+import io.yaes.Raise.*
 
 case class DivisionByZero()
 
@@ -121,7 +121,7 @@ val validated = Raise.either {
 For accumulation into a non-empty list (with `yaes-cats`):
 
 ```scala
-import in.rcard.yaes.RaiseNel  // alias for Raise[NonEmptyList[E]]
+import io.yaes.RaiseNel  // alias for Raise[NonEmptyList[E]]
 import cats.data.NonEmptyList
 
 val result: Either[NonEmptyList[String], (Int, Int)] = Raise.either {

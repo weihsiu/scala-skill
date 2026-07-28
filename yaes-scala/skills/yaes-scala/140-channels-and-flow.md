@@ -7,7 +7,7 @@ operators).
 ## Dependencies
 
 ```sbt
-"in.rcard.yaes" %% "yaes-data"
+"io.yaes" %% "yaes-data"
 ```
 
 ## Channel — inter-fiber communication
@@ -15,8 +15,8 @@ operators).
 Three flavours:
 
 ```scala
-import in.rcard.yaes.Channel
-import in.rcard.yaes.Channel.OverflowStrategy
+import io.yaes.Channel
+import io.yaes.Channel.OverflowStrategy
 
 val unbounded  = Channel.unbounded[Int]()                 // grows without bound
 val bounded    = Channel.bounded[Int](capacity = 2)       // blocks producer at capacity
@@ -47,7 +47,7 @@ handle it with `Raise.either` or use `foreach`, which exits cleanly.
 For "produce items, return a channel", use the `Channel.produce` builder:
 
 ```scala
-import in.rcard.yaes.Channel.Producer
+import io.yaes.Channel.Producer
 
 val squares = Channel.produce[Int] {
   (1 to 10).foreach(i => Producer.send(i * i))
@@ -73,7 +73,7 @@ val ch = Channel.produceWith(Channel.Type.Bounded(5)) {
 `collect`:
 
 ```scala
-import in.rcard.yaes.Flow
+import io.yaes.Flow
 
 val pipeline = Flow(1, 2, 3, 4, 5)
   .map(_ * 2)
@@ -89,8 +89,8 @@ pipeline.collect(out += _)   // ArrayBuffer(6, 8)
 To detach producer and consumer rates, insert a `buffer`:
 
 ```scala
-import in.rcard.yaes.Channel
-import in.rcard.yaes.Channel.buffer
+import io.yaes.Channel
+import io.yaes.Channel.buffer
 
 flow.buffer().collect { println(_) }                                 // unbounded
 flow.buffer(Channel.Type.Bounded(2)).collect { println(_) }          // capped
@@ -120,8 +120,8 @@ def merge[T](a: Flow[T], b: Flow[T]): Flow[T] =
 Bridge a `Flow` to a `java.util.concurrent.Flow.Publisher`:
 
 ```scala
-import in.rcard.yaes.{Flow, FlowPublisher}
-import in.rcard.yaes.FlowPublisher.asPublisher
+import io.yaes.{Flow, FlowPublisher}
+import io.yaes.FlowPublisher.asPublisher
 import java.util.concurrent.Flow.{Subscriber, Subscription}
 
 val src = Flow(1, 2, 3, 4, 5)

@@ -8,7 +8,7 @@ cancelled. No fiber outlives its parent.
 ## Dependencies
 
 ```sbt
-"in.rcard.yaes" %% "yaes-core"
+"io.yaes" %% "yaes-core"
 ```
 
 > **Required:** Java 24+. Earlier JDKs do not have the structured-concurrency
@@ -17,8 +17,8 @@ cancelled. No fiber outlives its parent.
 ## Forking a fiber
 
 ```scala
-import in.rcard.yaes.Async.*
-import in.rcard.yaes.Raise.*
+import io.yaes.Async.*
+import io.yaes.Raise.*
 
 def findUser(name: String): User = User(name)
 
@@ -97,8 +97,8 @@ For long-running servers, combine `Shutdown` (SIGTERM/SIGINT handling) with
 `Async.withGracefulShutdown` and a deadline:
 
 ```scala
-import in.rcard.yaes.*
-import in.rcard.yaes.Async.{Deadline, ShutdownTimedOut}
+import io.yaes.*
+import io.yaes.Async.{Deadline, ShutdownTimedOut}
 import scala.concurrent.duration.*
 
 val outcome: Either[ShutdownTimedOut, Unit] = Shutdown.run {

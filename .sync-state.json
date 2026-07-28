@@ -4,8 +4,8 @@
     "repo": "VirtusLab/scala-skill",
     "remote": "upstream",
     "branch": "master",
-    "last_synced_sha": "9eda4a82a9b7225a09d84a92bcaee1df1164f522",
-    "last_synced_date": "2026-06-11",
+    "last_synced_sha": "51eb40a55fa1c2a4c99f2980830d28bbea4a2ac7",
+    "last_synced_date": "2026-07-28",
     "path_mapping": {
       "direct-style-scala/skills/direct-style-scala/120-type-safe-configuration.md": "scala/skills/scala/120-type-safe-configuration.md",
       "direct-style-scala/skills/direct-style-scala/160-code-organization.md": "scala/skills/scala/160-code-organization.md",
@@ -27,20 +27,24 @@
       "direct-style-scala/skills/direct-style-scala/420-kafka-streaming.md": "softwaremill-scala/skills/softwaremill-scala/420-kafka-streaming.md",
       "direct-style-scala/skills/direct-style-scala/500-testing-http-endpoints.md": "softwaremill-scala/skills/softwaremill-scala/500-testing-http-endpoints.md",
       "direct-style-scala/skills/direct-style-scala/510-opentelemetry-observability.md": "softwaremill-scala/skills/softwaremill-scala/510-opentelemetry-observability.md",
-      "direct-style-scala/skills/direct-style-scala/CONTRIBUTING.md": "softwaremill-scala/skills/softwaremill-scala/CONTRIBUTING.md"
+      "direct-style-scala/skills/direct-style-scala/CONTRIBUTING.md": "softwaremill-scala/skills/softwaremill-scala/CONTRIBUTING.md",
+      "direct-style-scala/skills/direct-style-scala/170-subprocesses-and-external-streams.md": "softwaremill-scala/skills/softwaremill-scala/170-subprocesses-and-external-streams.md",
+      "direct-style-scala/skills/direct-style-scala/350-json-bodies.md": "softwaremill-scala/skills/softwaremill-scala/350-json-bodies.md",
+      "direct-style-scala/skills/direct-style-scala/360-endpoint-inputs.md": "softwaremill-scala/skills/softwaremill-scala/360-endpoint-inputs.md"
     }
   },
   "yaes": {
     "repo": "rcardin/yaes",
     "branch": "main",
-    "last_synced_sha": "cf6a215fc914e68fd95b59bdd9e754dbd36a19c3",
-    "last_synced_version": "0.20.0",
-    "last_synced_date": "2026-06-11",
+    "last_synced_sha": "013d1101047411f7cf2353bbcbc6a8732c813f8b",
+    "last_synced_version": "0.22.0",
+    "last_synced_date": "2026-07-28",
     "watched_paths": [
       "README.md",
+      "yaes-cats/src/",
       "yaes-core/src/",
       "yaes-data/src/",
-      "yaes-cats/src/",
+      "yaes-http/",
       "yaes-slf4j/src/",
       "yaes-test/src/"
     ],

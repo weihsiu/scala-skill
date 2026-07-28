@@ -7,13 +7,13 @@ and on `Raise`-signalled errors.
 ## Dependencies
 
 ```sbt
-"in.rcard.yaes" %% "yaes-core"
+"io.yaes" %% "yaes-core"
 ```
 
 ## Acquiring `AutoCloseable` resources
 
 ```scala
-import in.rcard.yaes.Resource.*
+import io.yaes.Resource.*
 import java.io.{FileInputStream, FileOutputStream}
 
 def copyFile(src: String, dst: String)(using Resource): Unit =
@@ -34,6 +34,19 @@ Resource.run {
 `Resource.acquire(c)` registers `c.close()` to run at scope exit and returns
 `c` for immediate use. Resources released in **reverse order of acquisition**
 (`out` then `in` above), the same rule as Java try-with-resources.
+
+The bound is `AutoCloseable`, not the narrower `java.io.Closeable` — so JDBC
+`Connection`, `Statement`, and `ResultSet`, `java.util.Scanner`,
+`java.util.stream.Stream`, and (since Java 19) `ExecutorService` can all be
+handed to `Resource.acquire` directly, with no `Resource.install` wrapper:
+
+```scala
+val conn = Resource.acquire(dataSource.getConnection())
+val stmt = Resource.acquire(conn.prepareStatement("select 1"))
+```
+
+> **Note:** the widening from `Closeable` to `AutoCloseable` landed in yaes
+> 0.21.0. On an older version these types need `Resource.install(…)(_.close())`.
 
 ## Custom acquire / release pairs
 

@@ -56,7 +56,7 @@
     {
       "name": "yaes-scala",
       "source": "./yaes-scala",
-      "description": "Direct-style Scala 3 with the yaes (λÆS) effect system — algebraic effects via context parameters, capability-based handlers, structured concurrency on Java virtual threads. Auto-load for any Scala task using `in.rcard.yaes`. Depends on the general `scala` plugin for language-level rules.",
+      "description": "Direct-style Scala 3 with the yaes (λÆS) effect system — algebraic effects via context parameters, capability-based handlers, structured concurrency on Java virtual threads. Auto-load for any Scala task using `io.yaes`. Depends on the general `scala` plugin for language-level rules.",
       "version": "0.1.0",
       "author": {
         "name": "Walter Chang"

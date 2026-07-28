@@ -7,7 +7,7 @@ function is plain Scala under a different `given`.
 ## Dependencies
 
 ```sbt
-"in.rcard.yaes" %% "yaes-core-test-scalatest" % Test
+"io.yaes" %% "yaes-core-test-scalatest" % Test
 ```
 
 ## Testing `Raise`
@@ -16,7 +16,7 @@ The most useful trick: a function with `Raise[E]` is its own test scaffold.
 Just call the handler.
 
 ```scala
-import in.rcard.yaes.Raise.*
+import io.yaes.Raise.*
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -69,7 +69,7 @@ import java.time.{Clock as JClock, Instant, ZoneOffset}
 ## Capturing `Writer` output
 
 ```scala
-import in.rcard.yaes.Writer.*
+import io.yaes.Writer.*
 
 def report(): Int writes String =
   Writer.write("start")

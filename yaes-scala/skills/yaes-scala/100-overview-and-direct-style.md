@@ -9,13 +9,13 @@ You write effectful code in plain direct style — no `Future`, no `IO`, no
 ## Dependencies
 
 ```sbt
-libraryDependencies += "in.rcard.yaes" %% "yaes-core" % "<latest>"
+libraryDependencies += "io.yaes" %% "yaes-core" % "<latest>"
 // Optional add-ons:
-// "in.rcard.yaes" %% "yaes-data"  // Channel, Flow
-// "in.rcard.yaes" %% "yaes-cats"  // Cats / Cats Effect interop, RaiseNel
-// "in.rcard.yaes" %% "yaes-slf4j" // SLF4J backend for Log
-// "in.rcard.yaes" %% "yaes-http-core" / "-server" / "-client" / "-circe" / "-jsoniter"
-// "in.rcard.yaes" %% "yaes-core-test-scalatest" % Test
+// "io.yaes" %% "yaes-data"  // Channel, Flow
+// "io.yaes" %% "yaes-cats"  // Cats / Cats Effect interop, RaiseNel
+// "io.yaes" %% "yaes-slf4j" // SLF4J backend for Log
+// "io.yaes" %% "yaes-http-core" / "-server" / "-client" / "-circe" / "-jsoniter"
+// "io.yaes" %% "yaes-core-test-scalatest" % Test
 ```
 
 > **Required:** yaes uses Java Virtual Threads and Structured Concurrency.
@@ -28,8 +28,8 @@ operations. Effects are expressed as `using` parameters (context parameters)
 and propagate through context functions:
 
 ```scala
-import in.rcard.yaes.*
-import in.rcard.yaes.Raise.*
+import io.yaes.*
+import io.yaes.Raise.*
 
 case class NotFound(what: String)
 
@@ -115,7 +115,7 @@ and runs on virtual threads. The differences:
 ## A complete tiny program
 
 ```scala
-import in.rcard.yaes.*
+import io.yaes.*
 
 object Greeting extends YaesApp:
   override def run: Unit =

@@ -26,12 +26,45 @@ Scala on the SoftwareMill stack (Ox, Tapir, sttp, MacWire, ox-kafka).
   job-level concurrency. Accept a parent `(using Ox)` only when a fork or
   resource must be tied to that parent scope's lifetime.
 * keep constructors plain; use factories that take `(using Ox)` and return
-  values that do not carry the capability.
+  values that do not carry the capability. If the factory only registers
+  resources and starts no forks, take the narrower `(using ResourceScope)`;
+  for scoped cleanup with no enclosing scope and no concurrency, use
+  `resourceScope` instead of `supervised`.
+* decide the owning scope BEFORE writing concurrent code. Model a stream reader
+  or worker as a fork in a `supervised` scope whose lifetime matches the work;
+  its result is the fork's **return value** (`fork{…}.join()`), not a value
+  published through a shared `AtomicReference`. NEVER return an object that owns
+  running forks/threads to be driven later — its lifetime escapes every scope,
+  making cancellation and cleanup manual again. Pass a consumer into the scope
+  instead of handing a live handle out.
+* a fork blocked reading a subprocess pipe, stdin, a file, or any other
+  classic `java.io` stream is NOT ended by scope cancellation — without the
+  right teardown shape, shutdown deadlocks. BEFORE writing code that drives a
+  subprocess or reads a blocking external stream (socket, SSE), read
+  [Subprocesses and External
+  Streams](170-subprocesses-and-external-streams.md).
 * prefer Ox's `.pipe` and `.tap` (`import ox.*`) over the standard-library
   `scala.util.chaining` ones when `ox.*` is already in scope, to drop single-use
   `val`s that only feed the next line. `.pipe(f)` returns `f(value)`; `.tap(f)`
   runs a side effect and returns the value unchanged. Keep a named `val` when
   the name documents intent or the value is reused.
+
+# Performance
+
+* virtual threads are never preempted — long CPU-bound computations (a few
+  suffice, e.g. a `mapPar` over such work) can starve every other virtual
+  thread in the process. Run long or non-instrumentable compute via
+  `computeIntensive` (platform-thread pool; the blocking caller keeps it
+  structured); in CPU-bound loops you control, call `cede()` about once per
+  millisecond.
+
+# Functional programming
+
+* the `scala` plugin forbids class-level `var`s. The sole exception on this
+  stack is mutable state encapsulated by an Ox `Actor`, which serialises every
+  invocation onto a single thread — the actor is what makes the field safe to
+  hold (see [Concurrency and Inter-Thread
+  Communication](150-shared-state-across-threads.md)).
 
 # Use-Case Guide
 
@@ -40,10 +73,12 @@ fetch the chapter(s) relevant to your current task from this guide and follow th
 patterns shown there. This is not optional — code that ignores guide patterns will
 be rejected in review.
 
-When fetching, you MUST request the COMPLETE content — every code block, every
-paragraph. Summaries lose critical details (e.g. required factory overrides,
-specific API calls). Use a prompt like: "Return the COMPLETE raw content. Every
-line, every code block. Do not summarize or omit anything."
+Retrieve the chapter as raw, unmodified text — read every code block and
+paragraph in full. Do NOT use a tool that summarises the page: summaries silently
+drop the `> Required` / `> Important` callouts and the exact API calls that make
+the chapter correct. Prefer reading the chapter file directly from the installed
+skill directory; if fetching over the network, use a method that returns the
+verbatim file (a raw HTTP GET), not a fetch-and-summarise tool.
 
 Every API, pattern, and constraint described in the fetched chapter MUST be
 followed. If the chapter says to use a specific API (e.g. `useInScope` for
@@ -61,7 +96,9 @@ https://raw.githubusercontent.com/weihsiu/scala-skill/refs/heads/master/software
   starting point for HTTP projects.
 
 - [Resource Management](100-resource-management.md) — `useInScope`,
-  `useCloseableInScope`, reverse-order release, scope-based cleanup.
+  `useCloseableInScope`, reverse-order release, scope-based cleanup;
+  `resourceScope` for cleanup without concurrency, `using ResourceScope` as
+  the narrower capability.
 
 - [Background Processes](110-background-processes.md) — `OxApp` entry point,
   `forkDiscard`/`forkUserDiscard` for daemon vs. user threads,
@@ -74,7 +111,15 @@ https://raw.githubusercontent.com/weihsiu/scala-skill/refs/heads/master/software
 - [Concurrency and Inter-Thread Communication](150-shared-state-across-threads.md)
   — Flows for declarative concurrent pipelines (`mapPar`, `merge`,
   `mapStateful`), Ox primitive selection, channels for worker mailboxes and
-  shutdown, actors for serialized mutable state.
+  shutdown, actors for serialized mutable state, `computeIntensive`/`cede` for
+  CPU-bound work on virtual threads.
+
+- [Subprocesses and External Streams](170-subprocesses-and-external-streams.md)
+  — driving a subprocess / socket / SSE reader as a fork whose return value is
+  the result; why a non-interruptible pipe read needs the resource destroyed
+  in the scope body's `finally` (before the join) rather than via
+  `releaseAfterScope`; process-tree teardown; `abandonOnInterruptReads` for
+  reads that can't be unblocked by closing; pipe back-pressure.
 
 ## Error Handling
 
@@ -109,6 +154,16 @@ https://raw.githubusercontent.com/weihsiu/scala-skill/refs/heads/master/software
 - [SOAP with scalaxb](340-soap-with-scalaxb.md) — XSD-to-Scala code generation,
   SOAP envelope wrapping/unwrapping, Tapir XML codecs for scalaxb types,
   `SOAPAction`-based endpoint routing, SOAP fault error handlers.
+
+- [JSON Request and Response Bodies](350-json-bodies.md) — jsoniter codec
+  derivation for DTOs, why list bodies need their own codec, encoding
+  parameterless enums as plain strings via `withDiscriminatorFieldName(None)`,
+  and using opaque-type identifiers directly in DTOs.
+
+- [Endpoint Inputs](360-endpoint-inputs.md) — `PlainCodec`s for
+  path/query/header inputs: mapping a built-in codec onto an opaque-type id,
+  `Codec.derivedEnumeration` for enum-valued inputs, and how multiple inputs reach
+  the handler.
 
 ## Data & Integration
 
