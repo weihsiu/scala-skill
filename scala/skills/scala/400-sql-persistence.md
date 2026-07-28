@@ -138,8 +138,9 @@ and `$u` / `${u.fieldName}` resolve to table and column names.
 ## Transactions
 
 All database operations require a `DbTx` context parameter. The `DB` class
-provides two transaction entry points (see [Error
-Handling](200-error-handling.md) for `transactEither`):
+provides two transaction entry points (for `transactEither`, see the Error
+Handling chapter (`200-error-handling.md`) in the `softwaremill-scala`
+plugin):
 
 ```scala
 def transact[T](f: DbTx ?=> T)(using NotGiven[T <:< Either[?, ?]]): T =

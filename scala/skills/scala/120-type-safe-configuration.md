@@ -106,8 +106,8 @@ def log(config: Config): Unit =
     |""".stripMargin)
 ```
 
-The production code also logs build metadata here — see [Version
-API](320-version-api.md).
+The production code also logs build metadata here — see the Version API
+chapter (`320-version-api.md`) in the `softwaremill-scala` plugin.
 
 ## Validation at load time
 

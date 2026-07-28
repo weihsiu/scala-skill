@@ -20,8 +20,8 @@ def secureEndpoint[T]: Endpoint[Id[T], Unit, Fail, Unit, Any] =
   baseEndpoint.securityIn(auth.bearer[String]().map(_.asId[T])(_.toString))
 ```
 
-`Id[T]` is an opaque type over `String` (see [SQL
-Persistence](400-sql-persistence.md)). Secured endpoints use
+`Id[T]` is an opaque type over `String` (see the SQL Persistence chapter,
+`400-sql-persistence.md`, in the `scala` plugin). Secured endpoints use
 `secureEndpoint[ApiKey]`:
 
 ```scala

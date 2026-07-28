@@ -148,12 +148,16 @@ instead — see [Background Processes](110-background-processes.md).
 
 Add features by following the relevant chapter:
 
-- Scala visibility, package, file, and module rules — [Code Organization and
-  Visibility](160-code-organization.md).
 - Resource lifecycle — [Resource Management](100-resource-management.md).
-- `application.conf` + `Config.read` — [Type-Safe Configuration](120-type-safe-configuration.md).
 - Wiring multiple services — [Compile-Time Dependency Injection](130-compile-time-dependency-injection.md).
 - HTTP endpoints with synchronous Tapir — [HTTP Server Configuration](310-http-server-configuration.md).
 - In-process endpoint testing — [Testing HTTP Endpoints](500-testing-http-endpoints.md).
-- PostgreSQL + Flyway — [SQL Persistence](400-sql-persistence.md).
 - Observability via OpenTelemetry — [OpenTelemetry Observability](510-opentelemetry-observability.md).
+
+These live in the `scala` plugin rather than here:
+
+- Scala visibility, package, file, and module rules — the Code Organization and
+  Visibility chapter (`160-code-organization.md`).
+- `application.conf` + `Config.read` — the Type-Safe Configuration chapter
+  (`120-type-safe-configuration.md`).
+- PostgreSQL + Flyway — the SQL Persistence chapter (`400-sql-persistence.md`).
