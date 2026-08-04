@@ -1,5 +1,5 @@
 ---
-description: Bring scala-skill into sync with VirtusLab/scala-skill and rcardin/yaes upstreams. Updates `.sync-state.json` on completion.
+description: Bring scala-skill into sync with VirtusLab/scala-skill and yaes-io/yaes upstreams. Updates `.sync-state.json` on completion.
 ---
 
 You are running the **upstream sync workflow** for this repo. Your job is to
@@ -12,7 +12,7 @@ There are two upstreams, tracked independently in `.sync-state.json`:
 1. **`VirtusLab/scala-skill`** — source for the `scala/` and `softwaremill-scala/`
    plugins. Diff at the markdown level: each tracked file maps from an upstream
    path to a local path via `upstream_scala_skill.path_mapping`.
-2. **`rcardin/yaes`** — source material for `yaes-scala/`. yaes ships no skill
+2. **`yaes-io/yaes`** — source material for `yaes-scala/`. yaes ships no skill
    files; chapters are hand-derived from its README and source. Detect a
    change in the upstream HEAD SHA, summarise what's new, and propose targeted
    updates to the affected `yaes-scala/skills/yaes-scala/*.md` files.
@@ -113,8 +113,8 @@ the per-plugin README).
 Fetch yaes HEAD SHA from GitHub (no local clone needed):
 
 Use the WebFetch tool on:
-- `https://api.github.com/repos/rcardin/yaes/commits/main` → extract `sha`
-- `https://raw.githubusercontent.com/rcardin/yaes/main/README.md` → full README
+- `https://api.github.com/repos/yaes-io/yaes/commits/main` → extract `sha`
+- `https://raw.githubusercontent.com/yaes-io/yaes/main/README.md` → full README
 
 ```sh
 LAST_YAES=$(jq -r '.yaes.last_synced_sha' .sync-state.json)
@@ -125,7 +125,7 @@ If new SHA `== LAST_YAES`, report "yaes is unchanged" and skip.
 Otherwise:
 
 1. Fetch the diff URL or use the GitHub compare API:
-   `https://api.github.com/repos/rcardin/yaes/compare/$LAST_YAES...<new sha>`
+   `https://api.github.com/repos/yaes-io/yaes/compare/$LAST_YAES...<new sha>`
    and read which paths changed.
 2. Filter to `watched_paths` in `.sync-state.json`. If nothing in
    `watched_paths` changed, report "no material yaes changes for our derived

@@ -7,7 +7,7 @@ HTTP library or effect system you use.
 This plugin pairs with one of:
 
 - **`softwaremill-scala`** for the Ox / Tapir / sttp stack
-- **`yaes-scala`** for the [yaes](https://github.com/rcardin/yaes) effect system
+- **`yaes-scala`** for the [yaes](https://github.com/yaes-io/yaes) effect system
 
 ## Prerequisites
 

@@ -1,6 +1,6 @@
 # yaes-scala
 
-Direct-style Scala 3 with [yaes (λÆS)](https://github.com/rcardin/yaes), an
+Direct-style Scala 3 with [yaes (λÆS)](https://github.com/yaes-io/yaes), an
 algebraic effect system using context parameters and context functions.
 
 This plugin is an **alternative** to `softwaremill-scala` — both deliver
@@ -24,5 +24,5 @@ plugin — install that first.
 ## Attribution
 
 Chapters in this plugin are hand-written based on the
-[yaes README and modules](https://github.com/rcardin/yaes) (MIT-licensed) and
+[yaes README and modules](https://github.com/yaes-io/yaes) (MIT-licensed) and
 kept in sync via the `/sync-upstream` slash command in the parent repo.

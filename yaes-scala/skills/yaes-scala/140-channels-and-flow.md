@@ -33,7 +33,7 @@ val rendezvous = Channel.rendezvous[String]()             // no buffer: synchron
 val ch = Channel.bounded[Int](capacity = 4)
 
 ch.send(42)
-val v = ch.receive()    // may raise ChannelClosed
+val v = ch.receive()    // suspends until an element arrives; may raise ChannelClosed
 ch.foreach(v => println(v))
 ch.close()              // no more sends; receivers drain buffer
 ch.cancel()             // drop buffer immediately
@@ -41,6 +41,35 @@ ch.cancel()             // drop buffer immediately
 
 `receive()` raises `ChannelClosed` once the channel is closed and empty. Either
 handle it with `Raise.either` or use `foreach`, which exits cleanly.
+
+### Non-blocking receive
+
+`tryReceive()` is the non-suspending counterpart of `receive()`: it inspects
+the channel once and never parks the caller.
+
+```scala
+val ch = Channel.unbounded[Int]()
+
+Raise.run {
+  ch.send(42)
+  ch.tryReceive()   // Some(42)
+  ch.tryReceive()   // None — empty, but still open
+
+  ch.close()
+  ch.tryReceive()   // raises ChannelClosed
+}
+```
+
+The three outcomes are distinct and worth keeping straight: `Some(element)`
+when one is immediately available, `None` when the channel is empty but still
+open, and a raised `ChannelClosed` once it is drained and closed, or
+cancelled. `None` therefore means "nothing right now", never "finished".
+
+> **Warning:** on a rendezvous channel `tryReceive()` returns `Some` only if a
+> sender is *already* parked with an item at the moment of the call. It does
+> not initiate a handshake, so a sender arriving immediately afterwards is not
+> served by that call — polling a rendezvous channel with `tryReceive` can
+> starve a sender indefinitely. Use `receive()` there.
 
 ### Producer DSL
 

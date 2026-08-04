@@ -1,6 +1,6 @@
 # yaes Overview and Direct Style
 
-[yaes (λÆS)](https://github.com/rcardin/yaes) is an experimental Scala 3
+[yaes (λÆS)](https://github.com/yaes-io/yaes) is an experimental Scala 3
 **algebraic effect system** that uses context parameters and context functions
 to track effects in types, then handles them with explicit handler functions.
 You write effectful code in plain direct style — no `Future`, no `IO`, no
@@ -14,12 +14,18 @@ libraryDependencies += "io.yaes" %% "yaes-core" % "<latest>"
 // "io.yaes" %% "yaes-data"  // Channel, Flow
 // "io.yaes" %% "yaes-cats"  // Cats / Cats Effect interop, RaiseNel
 // "io.yaes" %% "yaes-slf4j" // SLF4J backend for Log
-// "io.yaes" %% "yaes-http-core" / "-server" / "-client" / "-circe" / "-jsoniter"
+// "io.yaes" %% "yaes-http-server" / "-client"   // HTTP stack (chapters 400, 410)
+// "io.yaes" %% "yaes-http-circe" / "-jsoniter"  // JSON bodies (chapter 420)
 // "io.yaes" %% "yaes-core-test-scalatest" % Test
 ```
 
 > **Required:** yaes uses Java Virtual Threads and Structured Concurrency.
 > Run on Java 24 or newer.
+
+> **Note:** yaes moved from the `in.rcard.yaes` package and groupId to
+> `io.yaes` in 0.21.0. Upgrading an existing codebase from 0.20.x or earlier
+> does not need a hand edit — the `yaes-migration` module ships a Scalafix
+> rule that rewrites imports, fully-qualified references, and comments.
 
 ## The mental model
 

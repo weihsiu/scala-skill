@@ -12,8 +12,8 @@ This product includes work derived from:
    is derived from the upstream "direct-style-scala" skill and has been
    restructured into two plugins.
 
-2. rcardin/yaes
-   https://github.com/rcardin/yaes
+2. yaes-io/yaes (formerly rcardin/yaes)
+   https://github.com/yaes-io/yaes
    Copyright Riccardo Cardin and contributors
    Licensed under the MIT License.
 

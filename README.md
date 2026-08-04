@@ -6,7 +6,7 @@ packaged as three independent plugins in a single marketplace:
 
 - a foundational **`scala`** plugin (language and FP rules)
 - a **`softwaremill-scala`** plugin for the Ox / Tapir / sttp stack
-- a **`yaes-scala`** plugin for the [yaes](https://github.com/rcardin/yaes)
+- a **`yaes-scala`** plugin for the [yaes](https://github.com/yaes-io/yaes)
   effect system — an alternative to the SoftwareMill stack at the same level
 
 Install one, two, or all three.
@@ -22,7 +22,7 @@ Install one, two, or all three.
   client](https://sttp.softwaremill.com), ox-kafka,
   [MacWire](https://github.com/softwaremill/macwire).
 - **[yaes-scala](yaes-scala/skills/yaes-scala/)** — Direct-style Scala 3 with
-  [yaes (λÆS)](https://github.com/rcardin/yaes) — algebraic effects via Scala
+  [yaes (λÆS)](https://github.com/yaes-io/yaes) — algebraic effects via Scala
   3 context parameters, structured concurrency on virtual threads.
 
 ## Installation
@@ -171,7 +171,7 @@ codex plugin marketplace upgrade scala-skill
 The `softwaremill-scala` and `scala` plugins are derived from
 [VirtusLab/scala-skill](https://github.com/VirtusLab/scala-skill); the
 `yaes-scala` plugin is derived from
-[rcardin/yaes](https://github.com/rcardin/yaes). Both move independently.
+[yaes-io/yaes](https://github.com/yaes-io/yaes). Both move independently.
 
 Inside this repo, run the `/sync-upstream` slash command in Claude Code to
 detect upstream changes, review each diff, and merge approved updates. State
@@ -181,5 +181,5 @@ detect upstream changes, review each diff, and merge approved updates. State
 ## Attribution
 
 Content derived from VirtusLab/scala-skill is Apache-2.0. Content derived
-from rcardin/yaes is MIT-licensed. The repository itself is Apache-2.0. See
+from yaes-io/yaes is MIT-licensed. The repository itself is Apache-2.0. See
 `NOTICE` and `LICENSE`.

@@ -4,7 +4,7 @@ description: Direct-style Scala 3 with the yaes (λÆS) effect system — algebr
 ---
 
 You are an expert backend software engineer and architect working in direct-style
-Scala with [yaes (λÆS)](https://github.com/rcardin/yaes), an algebraic effect
+Scala with [yaes (λÆS)](https://github.com/yaes-io/yaes), an algebraic effect
 system.
 
 > **Prerequisite:** the general
@@ -95,14 +95,18 @@ https://raw.githubusercontent.com/weihsiu/scala-skill/refs/heads/master/yaes-sca
   `Resource.ensuring`, LIFO cleanup, `Resource.run` at the boundary.
 
 - [Async — Structured Concurrency](130-async-structured-concurrency.md) —
-  `Async.fork`, `Async.par`, `Async.race`, `Async.parTraverse`, fiber
-  cancellation, `Async.delay`, graceful shutdown via `Shutdown` +
-  `Async.withGracefulShutdown`.
+  `Async.fork` / `forkNamed`, `par`, `race` vs `raceSuccess`, `parTraverse` and
+  bounded `parTraverseLimit`, `never`, unsupervised scopes, fiber cancellation,
+  `Async.delay`, graceful shutdown via `Shutdown` +
+  `Async.withGracefulShutdown`, and the `Unscoped` escape hatch
+  (`Unscoped.spawn` behind `allowUnscoped`) for work that must outlive its
+  scope.
 
 - [Channels and Flow](140-channels-and-flow.md) — `Channel.bounded` /
-  `unbounded` / `rendezvous`, `OverflowStrategy`, the `Channel.produce` DSL,
-  `Flow` operators (`map`, `filter`, `take`, `buffer`), reactive-streams
-  interop via `FlowPublisher`.
+  `unbounded` / `rendezvous`, `OverflowStrategy`, blocking `receive` vs
+  non-blocking `tryReceive`, the `Channel.produce` DSL, `Flow` operators
+  (`map`, `filter`, `take`, `buffer`), reactive-streams interop via
+  `FlowPublisher`.
 
 - [Side-Effecting Services](200-side-effecting-services.md) — `Sync`, `Output`,
   `Input`, `Random`, `Clock`, `System`, `Log` — the standard runtime effects
@@ -114,6 +118,20 @@ https://raw.githubusercontent.com/weihsiu/scala-skill/refs/heads/master/yaes-sca
   capability substitution in tests, deterministic handlers for `Clock` and
   `Random`, asserting on `Raise` outcomes.
 
+- [HTTP Server](400-http-server.md) — `YaesServer.route`, the `p"…"` routing
+  DSL, typed `param` / `queryParam` read from named tuples, `Request` /
+  `Response`, `ServerConfig`, graceful shutdown with 503s and a deadline, and
+  the implementation's deliberate limits (no keep-alive, no TLS, no streaming).
+
+- [HTTP Client](410-http-client.md) — `YaesClient.make` under `Resource`,
+  fluent request building, the `uri"…"` interpolator and `PathParamStringifier`,
+  and the two error layers: `ConnectionError` from `send` versus `HttpError`
+  raised only when decoding with `as[A]`.
+
+- [JSON Request and Response Bodies](420-json-bodies.md) — `BodyEncoder` /
+  `BodyDecoder` shared by server and client, the circe and jsoniter modules, and
+  why their error granularity differs enough to drive the choice between them.
+
 ## Additional yaes modules
 
 Beyond `yaes-core` and `yaes-data`, the following are covered briefly in the
@@ -122,5 +140,7 @@ chapters above and in the yaes README:
 * **`yaes-cats`** — Cats / Cats Effect interop and `RaiseNel` polymorphic
   accumulation
 * **`yaes-slf4j`** — SLF4J backend for the `Log` effect
-* **`yaes-http-core`** / **`yaes-http-server`** / **`yaes-http-client`** /
-  **`yaes-http-circe`** / **`yaes-http-jsoniter`** — HTTP stack on top of yaes
+* **`yaes-migration`** — Scalafix rule automating the `in.rcard.yaes` →
+  `io.yaes` rename for codebases on 0.20.x or earlier
+
+The `yaes-http-*` modules have their own chapters above.

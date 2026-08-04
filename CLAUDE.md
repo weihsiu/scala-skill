@@ -14,7 +14,7 @@ single marketplace:
 | ------------------- | -------------------------------------------------------------------- |
 | `scala`             | General Scala 3 language, tooling, FP rules. Foundation.             |
 | `softwaremill-scala`| Direct-style Scala on Ox + Tapir + sttp + ox-kafka + MacWire.        |
-| `yaes-scala`        | Direct-style Scala with the [yaes](https://github.com/rcardin/yaes) algebraic effect system. |
+| `yaes-scala`        | Direct-style Scala with the [yaes](https://github.com/yaes-io/yaes) algebraic effect system. |
 
 `scala` is the prerequisite. `softwaremill-scala` and `yaes-scala` are
 **alternatives** to each other — both deliver direct-style concurrency on Java
@@ -111,7 +111,7 @@ This repo derives from two upstreams that move independently:
 
 * **`VirtusLab/scala-skill`** (Apache-2.0) — the source of the `scala` and
   `softwaremill-scala` chapters.
-* **`rcardin/yaes`** (MIT) — the source material for the `yaes-scala` chapters.
+* **`yaes-io/yaes`** (MIT) — the source material for the `yaes-scala` chapters.
   yaes does **not** publish skill files itself; we re-derive yaes content from
   its README and source.
 
@@ -143,7 +143,7 @@ must not be silently undone by a sync.
   is derived from VirtusLab/scala-skill under Apache-2.0. The original
   copyright is preserved; modifications are local. See `NOTICE`.
 * Content in `yaes-scala/skills/yaes-scala/` is hand-written based on the
-  rcardin/yaes README and module sources under MIT. See `NOTICE`.
+  yaes-io/yaes README and module sources under MIT. See `NOTICE`.
 * The repository itself is Apache-2.0.
 
 ## Do / Don't when editing this repo
