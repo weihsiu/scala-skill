@@ -2,14 +2,17 @@
 
 A collection of [Scala](https://www.scala-lang.org) skills for [Claude
 Code](https://claude.ai/claude-code) and [Codex](https://openai.com/codex/),
-packaged as three independent plugins in a single marketplace:
+packaged as four independent plugins in a single marketplace:
 
 - a foundational **`scala`** plugin (language and FP rules)
 - a **`softwaremill-scala`** plugin for the Ox / Tapir / sttp stack
 - a **`yaes-scala`** plugin for the [yaes](https://github.com/yaes-io/yaes)
-  effect system — an alternative to the SoftwareMill stack at the same level
+  effect system
+- a **`cats-effect-scala`** plugin for [Cats
+  Effect](https://typelevel.org/cats-effect/) and the Typelevel stack
 
-Install one, two, or all three.
+The last three are alternatives to each other at the same level. Install
+`scala` plus whichever one your project uses.
 
 ## Available plugins
 
@@ -24,6 +27,26 @@ Install one, two, or all three.
 - **[yaes-scala](yaes-scala/skills/yaes-scala/)** — Direct-style Scala 3 with
   [yaes (λÆS)](https://github.com/yaes-io/yaes) — algebraic effects via Scala
   3 context parameters, structured concurrency on virtual threads.
+- **[cats-effect-scala](cats-effect-scala/skills/cats-effect-scala/)** —
+  Monadic Scala 3 with [Cats Effect 3](https://typelevel.org/cats-effect/) and
+  the [Typelevel](https://typelevel.org) stack:
+  [http4s](https://http4s.org), [fs2](https://fs2.io),
+  [circe](https://circe.github.io/circe/),
+  [doobie](https://typelevel.org/doobie/).
+
+### Choosing a stack
+
+| Plugin | Style | Effects are… | JDK floor |
+| --- | --- | --- | --- |
+| `softwaremill-scala` | direct | plain expressions inside `Ox` scopes | 21 |
+| `yaes-scala` | direct | capabilities in `using` clauses | 24 |
+| `cats-effect-scala` | monadic | values (`IO[A]`) composed with `flatMap` | 11 |
+
+Pick exactly one per project — they have overlapping but incompatible takes on
+concurrency and resource handling. Broadly: `cats-effect-scala` for the most
+mature ecosystem and the widest JDK support, `softwaremill-scala` for
+production-ready direct style on virtual threads, `yaes-scala` for fine-grained
+algebraic effects if you can accept an experimental library.
 
 ## Installation
 
@@ -41,10 +64,12 @@ Install the plugins you want:
 /plugin install scala@scala-skill
 /plugin install softwaremill-scala@scala-skill
 /plugin install yaes-scala@scala-skill
+/plugin install cats-effect-scala@scala-skill
 ```
 
-(Install `scala` for any Scala project. Then pick `softwaremill-scala` **or**
-`yaes-scala` depending on which effect/concurrency stack your project uses.)
+(Install `scala` for any Scala project. Then pick **one** of
+`softwaremill-scala`, `yaes-scala`, or `cats-effect-scala` depending on which
+effect/concurrency stack your project uses.)
 
 ### Codex
 
@@ -73,9 +98,10 @@ codex plugin marketplace add /tmp/scala-skill
 git clone https://github.com/weihsiu/scala-skill.git /tmp/scala-skill
 mkdir -p ~/.claude/skills
 cp -r /tmp/scala-skill/scala/skills/scala ~/.claude/skills/
+# then one of:
 cp -r /tmp/scala-skill/softwaremill-scala/skills/softwaremill-scala ~/.claude/skills/
-# or
 cp -r /tmp/scala-skill/yaes-scala/skills/yaes-scala ~/.claude/skills/
+cp -r /tmp/scala-skill/cats-effect-scala/skills/cats-effect-scala ~/.claude/skills/
 ```
 
 ### Cursor, OpenCode, and Pi
@@ -89,15 +115,16 @@ each of them. Copy the foundation plus whichever stack you use:
 git clone https://github.com/weihsiu/scala-skill.git /tmp/scala-skill
 mkdir -p ~/.agents/skills
 cp -r /tmp/scala-skill/scala/skills/scala ~/.agents/skills/
+# then one of:
 cp -r /tmp/scala-skill/softwaremill-scala/skills/softwaremill-scala ~/.agents/skills/
-# or
 cp -r /tmp/scala-skill/yaes-scala/skills/yaes-scala ~/.agents/skills/
+cp -r /tmp/scala-skill/cats-effect-scala/skills/cats-effect-scala ~/.agents/skills/
 ```
 
 Restart the editor (or your `cursor-agent` CLI session); the agent loads a
 skill automatically when a task looks relevant. You can also trigger one
-explicitly: `/scala`, `/softwaremill-scala`, or `/yaes-scala` in Cursor's Agent
-chat, or `/skill:scala` (etc.) in Pi.
+explicitly: `/scala`, `/softwaremill-scala`, `/yaes-scala`, or
+`/cats-effect-scala` in Cursor's Agent chat, or `/skill:scala` (etc.) in Pi.
 
 Each tool also has its own native skills directory if you prefer to scope the
 install per tool — use it instead of `~/.agents/skills/` above:
@@ -161,7 +188,7 @@ codex plugin marketplace upgrade scala-skill
 > - `<plugin>/.codex-plugin/plugin.json`
 > - the matching entry in `.claude-plugin/marketplace.json`
 >
-> Bump only the plugins you actually changed — the three plugins version
+> Bump only the plugins you actually changed — the four plugins version
 > independently (see `CLAUDE.md`). Until the version is bumped and pushed,
 > `/plugin marketplace update` finds nothing new and agents keep running the
 > old skill.
@@ -171,7 +198,9 @@ codex plugin marketplace upgrade scala-skill
 The `softwaremill-scala` and `scala` plugins are derived from
 [VirtusLab/scala-skill](https://github.com/VirtusLab/scala-skill); the
 `yaes-scala` plugin is derived from
-[yaes-io/yaes](https://github.com/yaes-io/yaes). Both move independently.
+[yaes-io/yaes](https://github.com/yaes-io/yaes); the `cats-effect-scala`
+plugin is derived from the official documentation of the Typelevel projects it
+covers. All move independently.
 
 Inside this repo, run the `/sync-upstream` slash command in Claude Code to
 detect upstream changes, review each diff, and merge approved updates. State
@@ -181,5 +210,6 @@ detect upstream changes, review each diff, and merge approved updates. State
 ## Attribution
 
 Content derived from VirtusLab/scala-skill is Apache-2.0. Content derived
-from yaes-io/yaes is MIT-licensed. The repository itself is Apache-2.0. See
-`NOTICE` and `LICENSE`.
+from yaes-io/yaes is MIT-licensed. Content in `cats-effect-scala` is
+hand-written from the Typelevel projects' documentation (Apache-2.0 and MIT).
+The repository itself is Apache-2.0. See `NOTICE` and `LICENSE`.

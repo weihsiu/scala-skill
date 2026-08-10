@@ -7,7 +7,7 @@ itself**.
 ## What this repo is
 
 A fork of [VirtusLab/scala-skill](https://github.com/VirtusLab/scala-skill),
-restructured into **three independent Claude Code / Codex plugins** in a
+restructured into **four independent Claude Code / Codex plugins** in a
 single marketplace:
 
 | Plugin              | Scope                                                                |
@@ -15,22 +15,25 @@ single marketplace:
 | `scala`             | General Scala 3 language, tooling, FP rules. Foundation.             |
 | `softwaremill-scala`| Direct-style Scala on Ox + Tapir + sttp + ox-kafka + MacWire.        |
 | `yaes-scala`        | Direct-style Scala with the [yaes](https://github.com/yaes-io/yaes) algebraic effect system. |
+| `cats-effect-scala` | Monadic Scala with [Cats Effect 3](https://typelevel.org/cats-effect/) + http4s + fs2 + circe + doobie. |
 
-`scala` is the prerequisite. `softwaremill-scala` and `yaes-scala` are
-**alternatives** to each other — both deliver direct-style concurrency on Java
-virtual threads, just via different libraries. Pick one per project.
+`scala` is the prerequisite. The other three are **alternatives** to each
+other — they cover the same ground (concurrency, resources, HTTP, data) via
+incompatible models: Ox scopes, yaes capabilities, and Cats Effect `IO`
+respectively. Pick one per project.
 
 ## Layout
 
 ```
 scala-skill/
-├── .claude-plugin/marketplace.json        ← Claude Code marketplace (3 plugins)
+├── .claude-plugin/marketplace.json        ← Claude Code marketplace (4 plugins)
 ├── .agents/plugins/marketplace.json       ← Codex marketplace (mirror)
 ├── .claude/commands/sync-upstream.md      ← /sync-upstream slash command
 ├── .sync-state.json                       ← tracked upstream SHAs + path mapping
 ├── scala/                                 ← plugin: pure Scala
 ├── softwaremill-scala/                    ← plugin: SoftwareMill stack
 ├── yaes-scala/                            ← plugin: yaes effect system
+├── cats-effect-scala/                     ← plugin: Cats Effect / Typelevel stack
 ├── CLAUDE.md                              ← this file
 ├── LICENSE                                ← Apache-2.0
 ├── NOTICE                                 ← attribution
@@ -57,7 +60,8 @@ End users install through Claude Code's plugin marketplace:
 /plugin marketplace add weihsiu/scala-skill
 /plugin install scala@scala-skill
 /plugin install softwaremill-scala@scala-skill   # or
-/plugin install yaes-scala@scala-skill
+/plugin install yaes-scala@scala-skill           # or
+/plugin install cats-effect-scala@scala-skill
 ```
 
 Codex users:
@@ -82,6 +86,7 @@ mkdir -p ~/.claude/skills
 cp -r /tmp/scala-skill/scala/skills/scala               ~/.claude/skills/
 cp -r /tmp/scala-skill/softwaremill-scala/skills/softwaremill-scala ~/.claude/skills/
 # OR cp -r /tmp/scala-skill/yaes-scala/skills/yaes-scala ~/.claude/skills/
+# OR cp -r /tmp/scala-skill/cats-effect-scala/skills/cats-effect-scala ~/.claude/skills/
 ```
 
 ## Authoring conventions
@@ -107,13 +112,19 @@ These rules carry over from upstream's `CONTRIBUTING.md` (now living at
 
 ## Syncing with upstreams
 
-This repo derives from two upstreams that move independently:
+This repo derives from three upstream sources that move independently:
 
 * **`VirtusLab/scala-skill`** (Apache-2.0) — the source of the `scala` and
   `softwaremill-scala` chapters.
 * **`yaes-io/yaes`** (MIT) — the source material for the `yaes-scala` chapters.
   yaes does **not** publish skill files itself; we re-derive yaes content from
   its README and source.
+* **The Typelevel projects** (Apache-2.0 / MIT) — Cats Effect, http4s, fs2,
+  circe, doobie, log4cats, otel4s. There is no single repo to track, so
+  `cats-effect-scala` drift is tracked by **released library version** in
+  `.sync-state.json` (`cats_effect.last_synced_versions`) rather than by
+  commit SHA. A sync means: check each library's current release, and update
+  the chapters whose dependency lines or APIs changed.
 
 Run the sync workflow with `/sync-upstream`. It is a Claude-orchestrated
 command (not a shell script) because step-by-step prose merges and yaes
@@ -127,6 +138,8 @@ State is tracked in `.sync-state.json`:
   entry whenever a new upstream file lands.
 * `yaes.last_synced_sha` / `last_synced_version` — what we last derived
   `yaes-scala/` from.
+* `cats_effect.last_synced_versions` — the released library versions the
+  `cats-effect-scala/` chapters currently document.
 
 **Never edit `.sync-state.json` by hand.** It is updated only by
 `/sync-upstream`. If you must change it manually (e.g. recovering from a
@@ -144,6 +157,9 @@ must not be silently undone by a sync.
   copyright is preserved; modifications are local. See `NOTICE`.
 * Content in `yaes-scala/skills/yaes-scala/` is hand-written based on the
   yaes-io/yaes README and module sources under MIT. See `NOTICE`.
+* Content in `cats-effect-scala/skills/cats-effect-scala/` is hand-written
+  based on the official documentation of the Typelevel projects it covers
+  (Apache-2.0 and MIT). See `NOTICE`.
 * The repository itself is Apache-2.0.
 
 ## Do / Don't when editing this repo
@@ -158,11 +174,15 @@ must not be silently undone by a sync.
   add a corresponding entry under `path_mapping` in `.sync-state.json`.
 * When yaes adds a new module or effect, weigh whether it deserves its own
   chapter or fits an existing one. Aim for ~7–10 chapters total in `yaes-scala/`.
+* Keep `cats-effect-scala/` chapters pinned to the **stable** release lines
+  (http4s `0.23.x`, not the `1.0.0-Mxx` milestones) unless the user decides
+  otherwise, and update `cats_effect.last_synced_versions` whenever a
+  dependency line changes.
 
 **Don't**
 
 * Don't reintroduce a single combined plugin. The split is the design.
-* Don't bump version numbers across all three plugins in lockstep — they version
+* Don't bump version numbers across all four plugins in lockstep — they version
   independently.
 * Don't add cross-skill imports that assume "the other plugin is installed."
   Each plugin must be coherent on its own (with `scala` as documented

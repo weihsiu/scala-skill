@@ -1,0 +1,23 @@
+{
+  "name": "cats-effect-scala",
+  "version": "0.1.0",
+  "description": "Monadic Scala 3 with Cats Effect 3 and the Typelevel stack — IO, Resource, fibers, Ref/Deferred, http4s, fs2, circe, doobie. Auto-load for any Scala task using `cats.effect`, http4s, or fs2. Depends on the general `scala` plugin for language-level rules.",
+  "author": {
+    "name": "Walter Chang"
+  },
+  "homepage": "https://github.com/weihsiu/scala-skill/tree/master/cats-effect-scala/skills/cats-effect-scala",
+  "repository": "https://github.com/weihsiu/scala-skill",
+  "license": "Apache-2.0",
+  "keywords": [
+    "scala",
+    "scala3",
+    "cats-effect",
+    "typelevel",
+    "http4s",
+    "fs2",
+    "circe",
+    "doobie",
+    "effect-system",
+    "functional-programming"
+  ]
+}

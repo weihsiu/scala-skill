@@ -20,3 +20,19 @@ This product includes work derived from:
    Content under yaes-scala/skills/yaes-scala/ is hand-written based on the
    yaes README and module sources. It contains no copied source code; code
    examples illustrate the public yaes API surface.
+
+3. The Typelevel projects
+   Cats Effect  https://github.com/typelevel/cats-effect   (Apache-2.0)
+   http4s       https://github.com/http4s/http4s           (Apache-2.0)
+   fs2          https://github.com/typelevel/fs2           (MIT)
+   circe        https://github.com/circe/circe             (Apache-2.0)
+   doobie       https://github.com/typelevel/doobie        (MIT)
+   skunk        https://github.com/typelevel/skunk         (MIT)
+   log4cats     https://github.com/typelevel/log4cats      (Apache-2.0)
+   otel4s       https://github.com/typelevel/otel4s        (Apache-2.0)
+   Copyright the respective project authors and contributors.
+
+   Content under cats-effect-scala/skills/cats-effect-scala/ is hand-written
+   based on these projects' official documentation. It contains no copied
+   source code; code examples illustrate the public API surface of each
+   library.

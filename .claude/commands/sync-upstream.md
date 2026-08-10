@@ -1,13 +1,13 @@
 ---
-description: Bring scala-skill into sync with VirtusLab/scala-skill and yaes-io/yaes upstreams. Updates `.sync-state.json` on completion.
+description: Bring scala-skill into sync with the VirtusLab/scala-skill, yaes-io/yaes, and Typelevel upstreams. Updates `.sync-state.json` on completion.
 ---
 
 You are running the **upstream sync workflow** for this repo. Your job is to
-detect changes in two upstream sources, present each diff to the user, apply
+detect changes in three upstream sources, present each diff to the user, apply
 the ones they approve, and update `.sync-state.json` at the end. Do **not**
 auto-merge anything.
 
-There are two upstreams, tracked independently in `.sync-state.json`:
+There are three upstreams, tracked independently in `.sync-state.json`:
 
 1. **`VirtusLab/scala-skill`** — source for the `scala/` and `softwaremill-scala/`
    plugins. Diff at the markdown level: each tracked file maps from an upstream
@@ -16,6 +16,9 @@ There are two upstreams, tracked independently in `.sync-state.json`:
    files; chapters are hand-derived from its README and source. Detect a
    change in the upstream HEAD SHA, summarise what's new, and propose targeted
    updates to the affected `yaes-scala/skills/yaes-scala/*.md` files.
+3. **The Typelevel projects** — source material for `cats-effect-scala/`.
+   There is no single repo, so drift is tracked by **released library
+   version** in `cats_effect.last_synced_versions`, not by commit SHA.
 
 ---
 
@@ -26,6 +29,7 @@ There are two upstreams, tracked independently in `.sync-state.json`:
 Read `.sync-state.json`. Cache:
 - `upstream_scala_skill.last_synced_sha`, `path_mapping`
 - `yaes.last_synced_sha`, `derived_files`, `watched_paths`
+- `cats_effect.last_synced_versions`, `sources`, `derived_files`
 
 ### Step 1 — Git remote setup (idempotent)
 
@@ -138,17 +142,58 @@ Otherwise:
 **Do NOT** wholesale-overwrite the yaes chapters. They are hand-written; the
 user's edits matter.
 
+### Step 4b — Typelevel library versions
+
+`cats-effect-scala/` has no single upstream repo. Check the current released
+version of each library in `cats_effect.last_synced_versions` and compare
+against the recorded value.
+
+Look them up with WebFetch against Scaladex (or the project's own docs):
+
+- `https://index.scala-lang.org/typelevel/cats-effect`
+- `https://index.scala-lang.org/http4s/http4s` (use the stable `0.23.x` line,
+  NOT the `1.0.0-Mxx` milestones)
+- `https://index.scala-lang.org/typelevel/fs2`
+- `https://index.scala-lang.org/circe/circe`
+- `https://index.scala-lang.org/typelevel/doobie`
+- `https://index.scala-lang.org/typelevel/log4cats`
+- `https://index.scala-lang.org/typelevel/otel4s`
+
+If nothing moved, report "Typelevel stack is unchanged" and skip.
+
+For each library that advanced:
+
+1. Fetch its release notes / changelog and summarise what changed.
+2. Decide whether the change is **cosmetic** (a patch bump — only the version
+   string in `110-project-setup.md` and the chapter that names it) or
+   **material** (a renamed package, a changed API, a new capability worth
+   documenting).
+3. For a version-only bump, propose the `Edit` calls that update the
+   dependency lines. Note that the version appears in more than one chapter —
+   grep for the old version string rather than assuming a single site:
+   ```sh
+   grep -rn "3\.7\.0" cats-effect-scala/ || true
+   ```
+4. For a material change, present it and propose targeted chapter edits, one
+   at a time, exactly as for yaes.
+
+> Watch for groupId/package migrations specifically — doobie's move from
+> `org.tpolecat` to `org.typelevel` in `1.0.0-RC13` is the kind of change that
+> silently invalidates every code example in a chapter.
+
+**Do NOT** wholesale-overwrite the cats-effect chapters. They are hand-written.
+
 ### Step 5 — Cross-link sanity
 
 Run:
 
 ```sh
 grep -rE '\.\./|direct-style-scala/' --include='*.md' \
-  scala/ softwaremill-scala/ yaes-scala/ || true
+  scala/ softwaremill-scala/ yaes-scala/ cats-effect-scala/ || true
 ```
 
 Any hit (other than the deliberate `../../scala/skills/scala/SKILL.md`
-prerequisite reference in the two non-`scala` SKILL.mds) is a sign that an
+prerequisite reference in the three non-`scala` SKILL.mds) is a sign that an
 upstream edit reintroduced a stale path. Surface it.
 
 ### Step 6 — Write `.sync-state.json` and stage
@@ -162,7 +207,9 @@ jq --arg sha "$UPSTREAM_HEAD" --arg date "$(date -u +%Y-%m-%d)" \
   .sync-state.json > .sync-state.json.tmp && mv .sync-state.json.tmp .sync-state.json
 ```
 
-(Equivalent for the `yaes` section if it advanced.)
+(Equivalent for the `yaes` section if it advanced. For `cats_effect`, update
+the individual entries under `last_synced_versions` that moved, plus
+`last_synced_date`.)
 
 Then stage everything modified for the user to review:
 
