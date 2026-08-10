@@ -61,5 +61,72 @@
       "yaes-scala/skills/yaes-scala/410-http-client.md",
       "yaes-scala/skills/yaes-scala/420-json-bodies.md"
     ]
+  },
+  "cats_effect": {
+    "note": "No single upstream repo. Chapters are hand-derived from the official docs of several Typelevel projects, so drift is tracked by released library version rather than by commit SHA.",
+    "sources": [
+      {
+        "repo": "typelevel/cats-effect",
+        "docs": "https://typelevel.org/cats-effect/",
+        "license": "Apache-2.0"
+      },
+      {
+        "repo": "http4s/http4s",
+        "docs": "https://http4s.org/v0.23/docs/",
+        "license": "Apache-2.0"
+      },
+      {
+        "repo": "typelevel/fs2",
+        "docs": "https://fs2.io/#/guide",
+        "license": "MIT"
+      },
+      {
+        "repo": "circe/circe",
+        "docs": "https://circe.github.io/circe/",
+        "license": "Apache-2.0"
+      },
+      {
+        "repo": "typelevel/doobie",
+        "docs": "https://typelevel.org/doobie/",
+        "license": "MIT"
+      },
+      {
+        "repo": "typelevel/otel4s",
+        "docs": "https://typelevel.org/otel4s/",
+        "license": "Apache-2.0"
+      },
+      {
+        "repo": "typelevel/log4cats",
+        "docs": "https://typelevel.org/log4cats/",
+        "license": "Apache-2.0"
+      }
+    ],
+    "last_synced_versions": {
+      "cats-effect": "3.7.0",
+      "http4s": "0.23.36",
+      "fs2": "3.13.0",
+      "circe": "0.14.16",
+      "doobie": "1.0.0-RC13",
+      "skunk": "0.6.5",
+      "munit-cats-effect": "2.2.0",
+      "log4cats": "2.8.0",
+      "otel4s": "1.1.0"
+    },
+    "last_synced_date": "2026-08-10",
+    "derived_files": [
+      "cats-effect-scala/skills/cats-effect-scala/100-overview-and-io.md",
+      "cats-effect-scala/skills/cats-effect-scala/110-project-setup.md",
+      "cats-effect-scala/skills/cats-effect-scala/120-resource-management.md",
+      "cats-effect-scala/skills/cats-effect-scala/130-concurrency-and-fibers.md",
+      "cats-effect-scala/skills/cats-effect-scala/140-shared-state.md",
+      "cats-effect-scala/skills/cats-effect-scala/200-error-handling.md",
+      "cats-effect-scala/skills/cats-effect-scala/300-http-server.md",
+      "cats-effect-scala/skills/cats-effect-scala/310-http-client.md",
+      "cats-effect-scala/skills/cats-effect-scala/320-json-bodies.md",
+      "cats-effect-scala/skills/cats-effect-scala/400-streaming-with-fs2.md",
+      "cats-effect-scala/skills/cats-effect-scala/410-database-access.md",
+      "cats-effect-scala/skills/cats-effect-scala/500-testing.md",
+      "cats-effect-scala/skills/cats-effect-scala/510-observability-and-logging.md"
+    ]
   }
 }
