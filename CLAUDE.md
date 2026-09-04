@@ -112,7 +112,7 @@ These rules carry over from upstream's `CONTRIBUTING.md` (now living at
 
 ## Syncing with upstreams
 
-This repo derives from three upstream sources that move independently:
+This repo derives from four upstream sources that move independently:
 
 * **`VirtusLab/scala-skill`** (Apache-2.0) — the source of the `scala` and
   `softwaremill-scala` chapters.
@@ -125,6 +125,13 @@ This repo derives from three upstream sources that move independently:
   `.sync-state.json` (`cats_effect.last_synced_versions`) rather than by
   commit SHA. A sync means: check each library's current release, and update
   the chapters whose dependency lines or APIs changed.
+* **The Scala release cycle** (Apache-2.0) — the `scalaVersion` the chapters
+  pin. It moves on its own cadence, so a new LTS shows up in none of the three
+  sources above; it is tracked separately by released LTS version in
+  `.sync-state.json` (`scala_lang.last_synced_lts`). Pin the current LTS line,
+  not the Next line. A newer 3.x compiler can consume libraries built with an
+  older 3.x but not the reverse, so the pin will normally sit ahead of the
+  Typelevel stack — that is expected, not a version conflict.
 
 Run the sync workflow with `/sync-upstream`. It is a Claude-orchestrated
 command (not a shell script) because step-by-step prose merges and yaes
@@ -140,6 +147,8 @@ State is tracked in `.sync-state.json`:
   `yaes-scala/` from.
 * `cats_effect.last_synced_versions` — the released library versions the
   `cats-effect-scala/` chapters currently document.
+* `scala_lang.last_synced_lts` — the Scala LTS the chapters pin, with
+  `pinned_in` listing every file that names it.
 
 **Never edit `.sync-state.json` by hand.** It is updated only by
 `/sync-upstream`. If you must change it manually (e.g. recovering from a

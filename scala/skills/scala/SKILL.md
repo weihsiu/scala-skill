@@ -20,7 +20,7 @@ You are an expert backend software engineer and architect.
   * latest version of a KNOWN artifact — read the canonical resolver source,
     `https://repo1.maven.org/maven2/<group-with-slashes>/<artifact>/maven-metadata.xml`,
     and take `<release>` (or the last `<version>`). `<release>` may itself be a
-    prerelease (e.g. scalatest's was `3.3.0-SNAP4`, Scala 3's `3.9.0-RC1`); unless
+    prerelease (e.g. scalatest's was `3.3.0-SNAP4`, Scala 3's `3.10.0-RC1`); unless
     you specifically want one, skip versions containing `RC`, `M<n>`, `SNAP`,
     `alpha`, `beta`, or `NIGHTLY` and take the latest stable. Remember the Scala
     suffix, e.g. `com/softwaremill/ox/core_3`. This is never stale.

@@ -1,13 +1,13 @@
 ---
-description: Bring scala-skill into sync with the VirtusLab/scala-skill, yaes-io/yaes, and Typelevel upstreams. Updates `.sync-state.json` on completion.
+description: Bring scala-skill into sync with the VirtusLab/scala-skill, yaes-io/yaes, Typelevel, and Scala-release upstreams. Updates `.sync-state.json` on completion.
 ---
 
 You are running the **upstream sync workflow** for this repo. Your job is to
-detect changes in three upstream sources, present each diff to the user, apply
+detect changes in four upstream sources, present each diff to the user, apply
 the ones they approve, and update `.sync-state.json` at the end. Do **not**
 auto-merge anything.
 
-There are three upstreams, tracked independently in `.sync-state.json`:
+There are four upstreams, tracked independently in `.sync-state.json`:
 
 1. **`VirtusLab/scala-skill`** — source for the `scala/` and `softwaremill-scala/`
    plugins. Diff at the markdown level: each tracked file maps from an upstream
@@ -19,6 +19,9 @@ There are three upstreams, tracked independently in `.sync-state.json`:
 3. **The Typelevel projects** — source material for `cats-effect-scala/`.
    There is no single repo, so drift is tracked by **released library
    version** in `cats_effect.last_synced_versions`, not by commit SHA.
+4. **The Scala release cycle** — the `scalaVersion` the chapters pin. Moves
+   independently of all three above, so a new LTS appears in no other step.
+   Tracked by released LTS version in `scala_lang.last_synced_lts`.
 
 ---
 
@@ -30,6 +33,7 @@ Read `.sync-state.json`. Cache:
 - `upstream_scala_skill.last_synced_sha`, `path_mapping`
 - `yaes.last_synced_sha`, `derived_files`, `watched_paths`
 - `cats_effect.last_synced_versions`, `sources`, `derived_files`
+- `scala_lang.last_synced_lts`, `pinned_in`
 
 ### Step 1 — Git remote setup (idempotent)
 
@@ -148,16 +152,40 @@ user's edits matter.
 version of each library in `cats_effect.last_synced_versions` and compare
 against the recorded value.
 
-Look them up with WebFetch against Scaladex (or the project's own docs):
+Resolve every version from the canonical resolver metadata on `repo1`. Do
+**not** use Scaladex, and never `search.maven.org/solrsearch` — see the warning
+below.
 
-- `https://index.scala-lang.org/typelevel/cats-effect`
-- `https://index.scala-lang.org/http4s/http4s` (use the stable `0.23.x` line,
-  NOT the `1.0.0-Mxx` milestones)
-- `https://index.scala-lang.org/typelevel/fs2`
-- `https://index.scala-lang.org/circe/circe`
-- `https://index.scala-lang.org/typelevel/doobie`
-- `https://index.scala-lang.org/typelevel/log4cats`
-- `https://index.scala-lang.org/typelevel/otel4s`
+```sh
+for c in org/typelevel/cats-effect_3 org/http4s/http4s-core_3 co/fs2/fs2-core_3 \
+         io/circe/circe-core_3 org/typelevel/doobie-core_3 org/tpolecat/skunk-core_3 \
+         org/typelevel/munit-cats-effect_3 org/typelevel/log4cats-core_3 \
+         org/typelevel/otel4s-core_3; do
+  echo "=== $c"
+  curl -s --max-time 25 "https://repo1.maven.org/maven2/$c/maven-metadata.xml" \
+    | grep -o '<version>[^<]*</version>' | sed 's/<[^>]*>//g' | tail -10 | tr '\n' ' '
+  echo
+done
+```
+
+Read the version list, not `<release>` — `<release>` is frequently a
+prerelease. Skip anything containing `RC`, `M<n>`, `SNAP`, `alpha`, `beta`, or
+`NIGHTLY` and take the newest stable on the line the chapters track. Two that
+bite specifically:
+
+- **http4s** — the newest overall is a `1.0.0-Mxx` milestone. The tracked line
+  is the stable `0.23.x`, so filter (`grep -o '<version>0\.23\.[^<]*'`) rather
+  than reading the tail.
+- **doobie** — `1.0.0-RC13` is an RC but *is* the current release; it is the
+  documented exception, not a version to skip.
+
+> **Warning:** never resolve a version from
+> `search.maven.org/solrsearch`. Its index has been observed many months
+> stale — during the 2026-09-04 sync it reported cats-effect `3.6.1` as latest
+> when `3.7.1` had shipped, which would have silently skipped both that bump
+> and the skunk `1.0.0` migration. `repo1` `maven-metadata.xml` is the
+> resolver's own source of truth and is never stale. This mirrors the guidance
+> already in `scala/skills/scala/SKILL.md`.
 
 If nothing moved, report "Typelevel stack is unchanged" and skip.
 
@@ -182,6 +210,40 @@ For each library that advanced:
 > silently invalidates every code example in a chapter.
 
 **Do NOT** wholesale-overwrite the cats-effect chapters. They are hand-written.
+
+### Step 4c — Scala compiler line
+
+The chapters pin a `scalaVersion`, and the Scala release cycle is independent
+of every upstream above — a new LTS will not show up in any of the previous
+steps. Track it by released version in `scala_lang.last_synced_lts`.
+
+Read the canonical resolver metadata (never `search.maven.org/solrsearch`,
+which has been observed months stale):
+
+```sh
+curl -s https://repo1.maven.org/maven2/org/scala-lang/scala3-library_3/maven-metadata.xml \
+  | grep -o '<version>[^<]*</version>' | sed 's/<[^>]*>//g' | tail -20
+```
+
+`<release>` is frequently a prerelease (it was `3.10.0-RC1` the day 3.9.0 LTS
+shipped), so ignore it and take the newest stable version instead.
+
+Two distinct things can move, and they need different handling:
+
+1. **A patch on the tracked LTS line** (e.g. `3.9.0` → `3.9.1`) — cosmetic.
+   Propose the `Edit` to the pinned `scalaVersion`.
+2. **A new LTS line** (e.g. `3.3` → `3.9`) — material. Confirm it really is an
+   LTS rather than a Next release: check that the GitHub release name says so
+   (`gh api repos/scala/scala3/releases/tags/<v> --jq '.name'` returned
+   `3.9.0 LTS`). Then surface the migration decision to the user rather than
+   bumping — the old LTS keeps ~1 year of support and some projects target it
+   deliberately. Update the pin *and* any prose naming the LTS line.
+
+> A newer Scala 3.x compiler can consume libraries built with an older 3.x, but
+> not the reverse. So the pin may move ahead of the Typelevel stack — those
+> libraries lag the LTS by design (cats-effect 3.7.1 was still built against
+> Scala 3.3.4). A lagging library is *not* a reason to hold the pin back; check
+> the direction before reporting a conflict.
 
 ### Step 5 — Cross-link sanity
 
@@ -209,6 +271,7 @@ jq --arg sha "$UPSTREAM_HEAD" --arg date "$(date -u +%Y-%m-%d)" \
 
 (Equivalent for the `yaes` section if it advanced. For `cats_effect`, update
 the individual entries under `last_synced_versions` that moved, plus
+`last_synced_date`. For `scala_lang`, update `last_synced_lts` and
 `last_synced_date`.)
 
 Then stage everything modified for the user to review:

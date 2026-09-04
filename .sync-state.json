@@ -5,7 +5,7 @@
     "remote": "upstream",
     "branch": "master",
     "last_synced_sha": "51eb40a55fa1c2a4c99f2980830d28bbea4a2ac7",
-    "last_synced_date": "2026-08-04",
+    "last_synced_date": "2026-09-04",
     "path_mapping": {
       "direct-style-scala/skills/direct-style-scala/120-type-safe-configuration.md": "scala/skills/scala/120-type-safe-configuration.md",
       "direct-style-scala/skills/direct-style-scala/160-code-organization.md": "scala/skills/scala/160-code-organization.md",
@@ -38,7 +38,7 @@
     "branch": "main",
     "last_synced_sha": "8936e28c7ef3c87d5e8600a4e2f463ebf1f211b2",
     "last_synced_version": "0.23.0",
-    "last_synced_date": "2026-08-04",
+    "last_synced_date": "2026-09-04",
     "watched_paths": [
       "README.md",
       "yaes-cats/src/",
@@ -99,20 +99,30 @@
         "repo": "typelevel/log4cats",
         "docs": "https://typelevel.org/log4cats/",
         "license": "Apache-2.0"
+      },
+      {
+        "repo": "typelevel/skunk",
+        "docs": "https://typelevel.org/skunk/",
+        "license": "MIT"
+      },
+      {
+        "repo": "typelevel/munit-cats-effect",
+        "docs": "https://github.com/typelevel/munit-cats-effect",
+        "license": "Apache-2.0"
       }
     ],
     "last_synced_versions": {
-      "cats-effect": "3.7.0",
+      "cats-effect": "3.7.1",
       "http4s": "0.23.36",
       "fs2": "3.13.0",
       "circe": "0.14.16",
       "doobie": "1.0.0-RC13",
-      "skunk": "0.6.5",
+      "skunk": "1.0.0",
       "munit-cats-effect": "2.2.0",
       "log4cats": "2.8.0",
       "otel4s": "1.1.0"
     },
-    "last_synced_date": "2026-08-10",
+    "last_synced_date": "2026-09-04",
     "derived_files": [
       "cats-effect-scala/skills/cats-effect-scala/100-overview-and-io.md",
       "cats-effect-scala/skills/cats-effect-scala/110-project-setup.md",
@@ -127,6 +137,19 @@
       "cats-effect-scala/skills/cats-effect-scala/410-database-access.md",
       "cats-effect-scala/skills/cats-effect-scala/500-testing.md",
       "cats-effect-scala/skills/cats-effect-scala/510-observability-and-logging.md"
+    ]
+  },
+  "scala_lang": {
+    "note": "The Scala release cycle is independent of every other upstream here, so a new LTS shows up in no other step. Tracked by released LTS version. `<release>` in scala3-library_3 metadata is often a prerelease (Next line or an RC) — take the newest stable on the LTS line instead.",
+    "artifact": "org/scala-lang/scala3-library_3",
+    "lts_policy": "Pin the current LTS line. A newer 3.x compiler consumes libraries built with an older 3.x, so the pin may sit ahead of the Typelevel stack; that is expected, not a conflict.",
+    "last_synced_lts": "3.9.0",
+    "previous_lts": "3.3.8",
+    "previous_lts_supported_until": "2027-09",
+    "last_synced_date": "2026-09-04",
+    "pinned_in": [
+      "cats-effect-scala/skills/cats-effect-scala/110-project-setup.md",
+      "cats-effect-scala/skills/cats-effect-scala/README.md"
     ]
   }
 }

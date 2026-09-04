@@ -22,7 +22,10 @@ plugin — install that first.
 
 ## Prerequisites
 
-* Scala 3.3+ (the LTS line the Typelevel stack targets)
+* Scala 3.9+ (the current LTS line, released September 2026). Scala 3.3 LTS
+  still works and is maintained until around September 2027 — the Typelevel
+  libraries are themselves still built against 3.3.x, and a 3.9 compiler
+  consumes them without issue.
 * Java 11+ (Java 21+ recommended — Cats Effect 3.7 can run its blocking pool on
   virtual threads)
 * [Metals

@@ -8,7 +8,7 @@ Tests return `IO` values; the framework runs them. No `unsafeRunSync`, no
 ```sbt
 libraryDependencies ++= Seq(
   "org.typelevel" %% "munit-cats-effect"   % "2.2.0" % Test,
-  "org.typelevel" %% "cats-effect-testkit" % "3.7.0" % Test,
+  "org.typelevel" %% "cats-effect-testkit" % "3.7.1" % Test,
 )
 ```
 

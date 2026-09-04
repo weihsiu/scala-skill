@@ -228,17 +228,26 @@ directly, so it is fully non-blocking and has no JDBC or connection-pool
 machinery:
 
 ```sbt
-libraryDependencies += "org.tpolecat" %% "skunk-core" % "0.6.5"
+libraryDependencies += "org.tpolecat" %% "skunk-core" % "1.0.0"
 ```
 
 ```scala
 import skunk.*
 import skunk.codec.all.*
 import skunk.implicits.*
+import org.typelevel.otel4s.metrics.Meter
+import org.typelevel.otel4s.trace.Tracer
+
+given Tracer[IO] = Tracer.noop
+given Meter[IO]  = Meter.noop
 
 val session: Resource[IO, Session[IO]] =
-  Session.single[IO](host = "localhost", port = 5432,
-                     user = "postgres", database = "app", password = Some(pw))
+  Session.Builder[IO]
+    .withHost("localhost")
+    .withPort(5432)
+    .withUserAndPassword("postgres", pw)
+    .withDatabase("app")
+    .single
 
 val selectUser: Query[UUID, User] =
   sql"SELECT id, name, email FROM users WHERE id = $uuid"
@@ -247,6 +256,19 @@ val selectUser: Query[UUID, User] =
 
 session.use(_.prepare(selectUser).flatMap(_.option(id)))
 ```
+
+> **Important:** `1.0.0` deprecated the old `Session.single(host = ..., ...)`
+> and `Session.pooled(...)` constructors in favour of the fluent
+> `Session.Builder[F]`, and replaced Natchez with otel4s — so a `Tracer` and a
+> `Meter` must now be in implicit scope or the builder will not compile. Use
+> the no-op instances above when you are not exporting telemetry.
+
+> **Warning:** skunk `1.0.0` depends on **otel4s 0.16.x**, while the
+> observability chapter of this skill sets up **otel4s 1.1.0**. The two are
+> binary-incompatible across the `0.x`/`1.x` boundary, so a project that
+> follows both will hit an eviction. Until a stable skunk lands on otel4s
+> `1.x` (the `2.0.0-RCx` line already targets `1.0.1`), pin one side
+> deliberately rather than letting sbt pick.
 
 Choose skunk for Postgres-only projects that want end-to-end non-blocking I/O
 and precise, explicit codecs. Choose doobie when you need JDBC (other

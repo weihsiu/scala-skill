@@ -7,7 +7,7 @@ computation that will produce an `A` when the runtime executes it.
 ## Dependencies
 
 ```sbt
-libraryDependencies += "org.typelevel" %% "cats-effect" % "3.7.0"
+libraryDependencies += "org.typelevel" %% "cats-effect" % "3.7.1"
 ```
 
 `cats-effect` transitively pulls in `cats-core` and `cats-effect-kernel` (the
