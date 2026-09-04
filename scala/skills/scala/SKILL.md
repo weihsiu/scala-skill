@@ -24,10 +24,17 @@ You are an expert backend software engineer and architect.
     you specifically want one, skip versions containing `RC`, `M<n>`, `SNAP`,
     `alpha`, `beta`, or `NIGHTLY` and take the latest stable. Remember the Scala
     suffix, e.g. `com/softwaremill/ox/core_3`. This is never stale.
-  * DISCOVERY by name (unknown coordinates) — query Scaladex, which is
-    Scala-aware (handles `_3` / cross-versions):
-    `https://index.scala-lang.org/api/autocomplete?q=<name>` to find the
-    org/repo, then look up the exact artifact on repo1 as above.
+  * DISCOVERY when you know the groupId but not the artifact — use coursier,
+    which completes against repo1's own directory listing and is Scala-aware
+    (the `_3` / cross-version suffixes appear in the names):
+    `cs complete-dep org.typelevel:` lists every artifact under that org, and
+    `cs complete-dep org.typelevel:cats-effect_3:` lists its versions. Filter
+    prereleases as above. Never use Scaladex.
+  * DISCOVERY when you do not know the groupId either — read the project's own
+    README or docs page, which states the exact `libraryDependencies` line,
+    then confirm the version on repo1 as above. Do not guess a groupId: they
+    move (doobie went `org.tpolecat` → `org.typelevel`, while skunk stayed on
+    `org.tpolecat`), and a stale guess resolves to an abandoned line.
 * to lookup the API of a class, use the `inspect` tool. To lookup the docs or
   usages, use the `get-docs` and `get-usages` tools
 * to compile the project, use `compile-full`, `compile-module` tools
